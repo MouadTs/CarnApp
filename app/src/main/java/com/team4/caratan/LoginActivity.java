@@ -54,19 +54,19 @@ public class LoginActivity extends AppCompatActivity {
         final String pw = edtPw.getText().toString().trim();
 
         if (email.isEmpty()) {
-            edtEmail.setError("Username perlu diisi!");
+            edtEmail.setError(getString(R.string.error_username_required));
             edtEmail.requestFocus();
             return;
         }
 
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            edtEmail.setError("Email tidak sesuai!");
+            edtEmail.setError(getString(R.string.error_email_invalid));
             edtEmail.requestFocus();
             return;
         }
 
         if (pw.isEmpty()) {
-            edtPw.setError("Password perlu diisi!");
+            edtPw.setError(getString(R.string.error_password_required));
             edtPw.requestFocus();
             return;
         }
@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                         JSONObject obj = new JSONObject(response);
 
                         if (!obj.getBoolean("error")) {
-                            Toast.makeText(getApplicationContext(), "Berhasil masuk!",
+                            Toast.makeText(getApplicationContext(), getString(R.string.error_login_success),
                                     Toast.LENGTH_LONG).show();
 
                             final mDBhandler dbHandler = new mDBhandler(this);
@@ -94,11 +94,21 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
                             }
 
-                            dbHandler.createUsers(obj.getString("user_id"), obj.getString("fullname"),
-                                    obj.getString("email"), obj.getString("phone"), obj.getString("profile_pic"), obj.getString("admin"));
+                            // Extract user data from the new response format
+                            JSONObject userObj = obj.getJSONObject("user");
+                            String token = obj.getString("token");
+                            
+                            dbHandler.createUsers(
+                                userObj.getString("id"), 
+                                userObj.getString("fullName"),
+                                userObj.getString("email"), 
+                                userObj.optString("phone", ""), 
+                                userObj.optString("profilePic", ""), 
+                                userObj.optString("isAdmin", "false")
+                            );
 
                             SharedPrefManager.getInstance(getApplicationContext())
-                                    .loginUser(obj.getString("email"));
+                                    .loginUser(userObj.getString("email"));
 
                             dbHandler.close();
 
@@ -112,12 +122,14 @@ public class LoginActivity extends AppCompatActivity {
 
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "Error parsing response: " + e.getMessage(),
+                                Toast.LENGTH_LONG).show();
                     }
                 },
                 error -> {
                     progressBar.setVisibility(View.GONE);
 
-                    Toast.makeText(getApplicationContext(), "Silahkan cek kembali internet anda!",
+                    Toast.makeText(getApplicationContext(), getString(R.string.error_internet_connection),
                             Toast.LENGTH_LONG).show();
                 }
         ){

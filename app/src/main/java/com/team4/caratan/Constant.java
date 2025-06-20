@@ -2,24 +2,30 @@ package com.team4.caratan;
 
 public class Constant {
 
-    public static final String ROOT_URL = "https://caratan.000webhostapp.com/project/functions/";
-    //public static final String ROOT_URL = "http://192.168.18.23/project/functions/";
+    // New Java 22 Backend URL (will be updated when backend is ready)
+    public static final String ROOT_URL = "http://10.0.2.2:8080/api/";
+    //public static final String ROOT_URL = "http://localhost:8080/api/";
+    //public static final String ROOT_URL = "https://caratan.000webhostapp.com/project/functions/";
 
-    public static final String URL_REGISTER = ROOT_URL + "registerUser.php";
-    public static final String URL_LOGIN = ROOT_URL + "loginUser.php";
-    public static final String URL_UPDATEUSER = ROOT_URL + "updateUser.php";
+    // Authentication endpoints
+    public static final String URL_REGISTER = ROOT_URL + "auth/register";
+    public static final String URL_LOGIN = ROOT_URL + "auth/login";
+    public static final String URL_UPDATEUSER = ROOT_URL + "users/profile";
 
-    public static final String URL_GETCAR_LIST = ROOT_URL + "getCarList.php";
-    public static final String URL_GETCAR_LIST_BYMAKE = ROOT_URL + "getCarMakeListByMake.php";
-    public static final String URL_GETCARPHOTOS = ROOT_URL + "getCarPhotos.php";
-    public static final String URL_GETCARINFO = ROOT_URL + "getCarInfo.php";
-    public static final String URL_UPDATEVIEWS = ROOT_URL + "updateViews.php";
-    public static final String URL_GETCARLOGOSITE = ROOT_URL + "getCarLogoSite.php";
+    // Car management endpoints
+    public static final String URL_GETCAR_LIST = ROOT_URL + "cars";
+    public static final String URL_GETCAR_LIST_BYMAKE = ROOT_URL + "cars/make/";
+    public static final String URL_GETCARPHOTOS = ROOT_URL + "cars/";
+    public static final String URL_GETCARINFO = ROOT_URL + "cars/";
+    public static final String URL_UPDATEVIEWS = ROOT_URL + "cars/";
+    public static final String URL_GETCARLOGOSITE = ROOT_URL + "cars/logo/";
 
-    public static final String URL_GETMAKE_LIST = ROOT_URL + "getCarMakeList.php";
-    public static final String URL_GETMODEL_LIST_BYMAKE = ROOT_URL + "getCarModelByMake.php";
-    public static final String URL_GETTYPE_LIST_BYMODEL = ROOT_URL + "getCarTypeListByModel.php";
-    public static final String URL_GETCOLOR_LIST = ROOT_URL + "getCarColorList.php";
+    // Car makes/models endpoints
+    public static final String URL_GETMAKE_LIST = ROOT_URL + "makes";
+    public static final String URL_GETMODEL_LIST_BYMAKE = ROOT_URL + "makes/";
+    public static final String URL_GETTYPE_LIST_BYMODEL = ROOT_URL + "models/";
+    public static final String URL_GETCOLOR_LIST = ROOT_URL + "colors";
 
-    public static final String URL_ADDCAR = ROOT_URL + "addCar.php";
+    // Add car endpoint
+    public static final String URL_ADDCAR = ROOT_URL + "cars";
 }

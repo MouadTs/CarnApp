@@ -69,31 +69,31 @@ public class RegisterActivity extends AppCompatActivity {
         String pw = edtPw.getText().toString().trim();
 
         if (nama.isEmpty()) {
-            edtNama.setError("Username perlu diisi!");
+            edtNama.setError(getString(R.string.error_username_required));
             edtNama.requestFocus();
             return;
         }
 
         if (email.isEmpty()) {
-            edtEmail.setError("Email perlu diisi!");
+            edtEmail.setError(getString(R.string.error_email_required));
             edtEmail.requestFocus();
             return;
         }
 
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            edtEmail.setError("Email tidak sesuai!");
+            edtEmail.setError(getString(R.string.error_email_invalid));
             edtEmail.requestFocus();
             return;
         }
 
         if (pw.isEmpty()) {
-            edtPw.setError("Password perlu diisi!");
+            edtPw.setError(getString(R.string.error_password_required));
             edtPw.requestFocus();
             return;
         }
 
         if (pw.length()<6) {
-            edtPw.setError("Password terlalu pendek, minimal 6 karakter!");
+            edtPw.setError(getString(R.string.error_password_too_short));
             edtPw.requestFocus();
             return;
         }
@@ -116,7 +116,7 @@ public class RegisterActivity extends AppCompatActivity {
                 },
                 error -> {
                     progressBar.setVisibility(View.GONE);
-                    Toast.makeText(getApplicationContext(), "Silahkan cek kembali internet anda!",
+                    Toast.makeText(getApplicationContext(), getString(R.string.error_internet_connection),
                             Toast.LENGTH_LONG).show();
                 }){
             @Override

@@ -51,22 +51,21 @@ public class MainActivity extends AppCompatActivity {
         openHome();
 
         binding.bottomNavigation.setOnItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.mnHome:
-                    openHome();
-                    break;
-                case R.id.mnExplore:
-                    openExplore();
-                    break;
-                case R.id.mnTrade:
-                    openSell();
-                    break;
-                case R.id.mnProfile:
-                    openProfile();
-                    break;
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.mnHome) {
+                openHome();
+            } else if (itemId == R.id.mnExplore) {
+                openExplore();
+            } else if (itemId == R.id.mnTrade) {
+                openSell();
+            } else if (itemId == R.id.mnProfile) {
+                openProfile();
             }
+
             return true;
         });
+
     }
 
     private void openHome() {
