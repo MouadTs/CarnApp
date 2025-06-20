@@ -5,12 +5,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Dialog;
 import android.content.Intent;
-
 import android.database.SQLException;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -30,7 +28,10 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        getSupportActionBar().hide();
+        // Hide action bar safely
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         dbHandler = new mDBhandler(this);
 
@@ -41,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Users users = dbHandler.getUsers();
-
         fullname = users.getUser_fullname();
         email = users.getUser_email();
         pp = users.getUser_profilepic();
@@ -65,14 +65,11 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
         });
-
     }
 
     private void openHome() {
         HomeFragment home = new HomeFragment();
-
-        FragmentTransaction fragTrans = getSupportFragmentManager()
-                .beginTransaction();
+        FragmentTransaction fragTrans = getSupportFragmentManager().beginTransaction();
 
         Bundle data = new Bundle();
         data.putString("nama", fullname);
@@ -83,21 +80,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void openExplore() {
         ExploreFragment explore = new ExploreFragment();
-
-        FragmentTransaction fragTrans = getSupportFragmentManager()
-                .beginTransaction();
-
+        FragmentTransaction fragTrans = getSupportFragmentManager().beginTransaction();
         fragTrans.replace(R.id.mainFrame, explore).commit();
     }
 
     private void openSell() {
+        // Add implementation when ready
     }
 
     private void openProfile() {
         ProfileFragment profile = new ProfileFragment();
-
-        FragmentTransaction fragTrans = getSupportFragmentManager()
-                .beginTransaction();
+        FragmentTransaction fragTrans = getSupportFragmentManager().beginTransaction();
 
         Bundle data = new Bundle();
         data.putString("nama", fullname);
@@ -110,18 +103,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void showLogoutDialog() {
         final Dialog dialog = new Dialog(MainActivity.this);
-
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog .setCancelable(false);
+        dialog.setCancelable(false);
         dialog.setContentView(R.layout.logout_dialog);
 
-        Button btnLogoutIYA = dialog.findViewById(R.id.btnYes_logout);
-        Button btnLogoutTIDAK = dialog.findViewById(R.id.btnNo_logout);
+        // ✅ Updated IDs to match your XML
+        Button btnLogoutIYA = dialog.findViewById(R.id.btnYes);
+        Button btnLogoutTIDAK = dialog.findViewById(R.id.btnNo);
 
         btnLogoutIYA.setOnClickListener(view -> {
             dialog.dismiss();
-
             SharedPrefManager.getInstance(getApplicationContext()).logout();
 
             try {
@@ -137,15 +129,8 @@ public class MainActivity extends AppCompatActivity {
             finish();
         });
 
-        btnLogoutTIDAK.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        btnLogoutTIDAK.setOnClickListener(view -> dialog.dismiss());
 
         dialog.show();
     }
-
-
 }

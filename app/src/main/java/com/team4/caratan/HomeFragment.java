@@ -152,9 +152,9 @@ public class HomeFragment extends Fragment {
                     progressBar.setVisibility(View.GONE);
                 },
                 error -> {
-                    Toast.makeText(getContext(), "Silahkan cek kembali internet anda!",
-                        Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getContext(), "Please check your internet connection!",
+                            Toast.LENGTH_LONG).show();
                 }
         );
         RequestQueue requestQueue = Volley.newRequestQueue(requireContext());

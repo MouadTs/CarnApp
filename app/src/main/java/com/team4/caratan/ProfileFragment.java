@@ -72,7 +72,7 @@ public class ProfileFragment extends Fragment {
         btnLogout = (Button) requireView().findViewById(R.id.pflBtnLogout);
         imgProfile = (ImageView) requireView().findViewById(R.id.imgProfil);
 
-        String imgurl = Constant.ROOT_URL + pp;
+        String imgurl = Constant.IMAGE_URL + pp;
         imageLoader = CustomVolleyRequest.getInstance(requireContext()).getImageLoader();
         imageLoader.get(imgurl,
                 ImageLoader.getImageListener(imgProfile, R.drawable.defaultprofileicon, R.drawable.defaultprofileicon));

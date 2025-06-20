@@ -43,46 +43,51 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView7" />
 
             <TextView
-                android:id="@+id/textView11"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                android:text="Apakah anda yakin untuk menyelesaikan sesi pada aplikasi ini?"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:text="Are you sure you want to end your session on this application?"
                 android:textAlignment="center"
-                android:textColor="#393939"
+                android:textColor="#0E0E0E"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView11">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="32dp"
+                android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btnYes_logout"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="54dp"
+                    android:id="@+id/btnNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:text="IYA" />
+                    android:backgroundTint="#FFFFFF"
+                    android:text="NO"
+                    android:textAllCaps="false"
+                    android:textColor="#0E0E0E"
+                    app:cornerRadius="20dp"
+                    app:strokeColor="#0E0E0E"
+                    app:strokeWidth="1dp" />
 
                 <Button
-                    android:id="@+id/btnNo_logout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="54dp"
+                    android:id="@+id/btnYes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:text="TIDAK"
-                    app:cornerRadius="24dp" />
+                    android:text="YES"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    app:cornerRadius="20dp" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

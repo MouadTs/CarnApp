@@ -32,37 +32,17 @@ import java.util.Map;
 
 public class SellCar_InfoFragment extends Fragment {
 
-    private Button btnNext;
-
-    private EditText edtYear, edtMileage, edtPrice, edtDesc;
-    private Spinner spinMake, spinModel, spinType, spinColor;
+    private Button btnNext1;
+    private EditText edtYear, edtMileage, edtPrice, edtDesc, edtModel, edtType, edtColor;
+    private Spinner spinnerBrand;
 
     private ArrayList<String> makeList = new ArrayList<>();
-    private ArrayList<String> modelList = new ArrayList<>();
-    private ArrayList<String> typeList = new ArrayList<>();
-    private ArrayList<String> colorList = new ArrayList<>();
-
-    private ArrayAdapter<String> makeAdapter;
-    private ArrayAdapter<String> modelAdapter;
-    private ArrayAdapter<String> typeAdapter;
-    private ArrayAdapter<String> colorAdapter;
-
-    private String selectedMake = null, selectedModel = null, selectedType = null, selectedColor = null,
-            year, mileage, price, desc;
-
-    public SellCar_InfoFragment() {
-        // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
+    private String selectedMake, model, type, color, year, mileage, price, desc;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_sell_car__info, container, false);
     }
 
@@ -70,78 +50,29 @@ public class SellCar_InfoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        edtYear = requireView().findViewById(R.id.SELL_edtYear);
-        edtMileage = requireView().findViewById(R.id.SELL_edtMileage);
-        edtPrice = requireView().findViewById(R.id.SELL_edtPrice);
-        edtDesc = requireView().findViewById(R.id.SELL_edtDesc);
-
-        spinMake = requireView().findViewById(R.id.SELL_spinMake);
-        spinModel = requireView().findViewById(R.id.SELL_spinModel);
-        spinType = requireView().findViewById(R.id.SELL_spinType);
-        spinColor = requireView().findViewById(R.id.SELL_spinColor);
+        edtYear = requireView().findViewById(R.id.edtYear);
+        edtMileage = requireView().findViewById(R.id.edtMileage);
+        edtPrice = requireView().findViewById(R.id.edtPrice);
+        edtDesc = requireView().findViewById(R.id.edtDesc);
+        edtModel = requireView().findViewById(R.id.edtModel);
+        edtType = requireView().findViewById(R.id.edtType);
+        edtColor = requireView().findViewById(R.id.edtColor);
+        spinnerBrand = requireView().findViewById(R.id.spinnerBrand);
+        btnNext1 = requireView().findViewById(R.id.SELL_btnNext1);
 
         getMakeSpinnerData();
-        spinMake.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerBrand.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(adapterView.getId() == R.id.SELL_spinMake) {
-                    selectedMake = adapterView.getSelectedItem().toString();
-                    getModelSpinnerData();
-                }
+                selectedMake = adapterView.getSelectedItem().toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
-        spinModel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(adapterView.getId() == R.id.SELL_spinModel) {
-                    selectedModel = adapterView.getSelectedItem().toString();
-                    getTypeSpinnerData();
-                    getColorSpinnerData();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        spinType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(adapterView.getId() == R.id.SELL_spinType) {
-                    selectedType = adapterView.getSelectedItem().toString();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        spinColor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(adapterView.getId() == R.id.SELL_spinColor) {
-                    selectedColor = adapterView.getSelectedItem().toString();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        btnNext = requireView().findViewById(R.id.SELL_btnNext1);
-        btnNext.setOnClickListener(new View.OnClickListener() {
+        btnNext1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -149,228 +80,93 @@ public class SellCar_InfoFragment extends Fragment {
                 mileage = edtMileage.getText().toString().trim();
                 price = edtPrice.getText().toString().trim();
                 desc = edtDesc.getText().toString().trim();
+                model = edtModel.getText().toString().trim();
+                type = edtType.getText().toString().trim();
+                color = edtColor.getText().toString().trim();
 
-                if(year.isEmpty()) {
-                    edtYear.setError("Tahun Mobil Harus Diisi!");
+                if (year.isEmpty()) {
+                    edtYear.setError("Car Year Must Be Filled!");
                     edtYear.requestFocus();
                     return;
                 }
-                if(Double.parseDouble(year) > 2024 || Double.parseDouble(year) < 1901) {
-                    edtYear.setError("Tahun Mobil Tidak tepat!");
+                if (Integer.parseInt(year) < 1900 || Integer.parseInt(year) > 2024) {
+                    edtYear.setError("Car Year Is Not Valid!");
                     edtYear.requestFocus();
                     return;
                 }
-                if(mileage.isEmpty()) {
-                    edtMileage.setError("Kilometer Mobil Harus Diisi!");
+                if (mileage.isEmpty()) {
+                    edtMileage.setError("Car Mileage Must Be Filled!");
                     edtMileage.requestFocus();
                     return;
                 }
-                if(Double.parseDouble(mileage) < 11 || Double.parseDouble(mileage) > 300000) {
-                    edtMileage.setError("Kilometer Mobil Tidak sesuai!");
+                if (Integer.parseInt(mileage) < 0 || Integer.parseInt(mileage) > 999999) {
+                    edtMileage.setError("Car Mileage Is Not Valid!");
                     edtMileage.requestFocus();
                     return;
                 }
-                if(price.isEmpty()) {
-                    edtPrice.setError("Harga Mobil Harus Diisi!");
+                if (price.isEmpty()) {
+                    edtPrice.setError("Car Price Must Be Filled!");
                     edtPrice.requestFocus();
                     return;
                 }
-                if(Double.parseDouble(price) < 2000000) {
-                    edtPrice.setError("Tidak dapat menjual mobil dibawah Rp 2.000.000!");
-                    edtMileage.requestFocus();
+                if (Integer.parseInt(price) < 2000000) {
+                    edtPrice.setError("Cannot sell car below Rp 2,000,000!");
+                    edtPrice.requestFocus();
                     return;
                 }
-                if(desc.isEmpty()) {
-                    edtDesc.setError("Deskripsi Mobil Harus Diisi!");
+                if (desc.isEmpty()) {
+                    edtDesc.setError("Car Description Must Be Filled!");
                     edtDesc.requestFocus();
                     return;
                 }
 
-                ((SellCarActivity)getActivity()).set_info(selectedMake, selectedModel, selectedType, selectedColor,
-                                                            year, mileage, price, desc);
+                ((SellCarActivity)getActivity()).carMake = selectedMake;
+                ((SellCarActivity)getActivity()).carModel = model;
+                ((SellCarActivity)getActivity()).carType = type;
+                ((SellCarActivity)getActivity()).carColor = color;
+                ((SellCarActivity)getActivity()).carYear = year;
+                ((SellCarActivity)getActivity()).carMileage = mileage;
+                ((SellCarActivity)getActivity()).carPrice = price;
+                ((SellCarActivity)getActivity()).carDesc = desc;
 
-                ((SellCarActivity)getActivity()).add_progress(33);
                 ((SellCarActivity)getActivity()).openSellCar_Photo();
             }
         });
     }
 
     private void getMakeSpinnerData() {
-        //progressBar.setVisibility(View.VISIBLE);
-
-        StringRequest request = new StringRequest(
-                Request.Method.POST,
-                Constant.URL_GETMAKE_LIST,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.URL_GET_MAKE,
                 response -> {
-
-                    //carMakeArrayList.clear();
                     try {
-                        JSONObject obj = new JSONObject(response);
-                        JSONArray jsonArray = obj.getJSONArray("carmake");
+                        JSONObject jsonObject = new JSONObject(response);
 
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject object = jsonArray.getJSONObject(i);
+                        if (!jsonObject.getBoolean("error")) {
+                            JSONArray jsonArray = jsonObject.getJSONArray("makes");
 
-                            String make_name = object.getString("make_name");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject object = jsonArray.getJSONObject(i);
 
-                            makeList.add(make_name);
-                            makeAdapter = new ArrayAdapter<>(requireContext(),
+                                String makeName = object.getString("make_name");
+                                makeList.add(makeName);
+                            }
+
+                            ArrayAdapter<String> makeAdapter = new ArrayAdapter<>(getContext(),
                                     android.R.layout.simple_spinner_item, makeList);
                             makeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                            spinMake.setAdapter(makeAdapter);
+                            spinnerBrand.setAdapter(makeAdapter);
                         }
-                    }
-                    catch (JSONException e) {
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    //progressBar.setVisibility(View.GONE);
                 },
                 error -> {
-                    Toast.makeText(requireContext(), "Silahkan cek kembali internet anda!",
+                    Toast.makeText(requireContext(), "Please check your internet connection!",
                             Toast.LENGTH_LONG).show();
                     //progressBar.setVisibility(View.GONE);
                 }
         );
-        RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
-        requestQueue.add(request);
-    }
 
-    private void getModelSpinnerData() {
-        final String makeName = selectedMake;
-        //progressBar.setVisibility(View.VISIBLE);
-
-        StringRequest request = new StringRequest(
-                Request.Method.POST,
-                Constant.URL_GETMODEL_LIST_BYMAKE,
-                response -> {
-
-                    //carMakeArrayList.clear();
-                    try {
-                        JSONObject obj = new JSONObject(response);
-                        JSONArray jsonArray = obj.getJSONArray("carmodel");
-                        modelList.clear();
-
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject object = jsonArray.getJSONObject(i);
-
-                            String model_name = object.getString("model_name");
-                            modelList.add(model_name);
-                            modelAdapter = new ArrayAdapter<>(requireContext(),
-                                    android.R.layout.simple_spinner_item, modelList);
-                            modelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                            spinModel.setAdapter(modelAdapter);
-                        }
-                    }
-                    catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    //progressBar.setVisibility(View.GONE);
-                },
-                error -> {
-                    Toast.makeText(requireContext(), "Silahkan cek kembali internet anda!",
-                            Toast.LENGTH_LONG).show();
-                    //progressBar.setVisibility(View.GONE);
-                }
-        ){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("make_name", makeName);
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
-        requestQueue.add(request);
-    }
-
-    private void getTypeSpinnerData() {
-        final String modelName = selectedModel;
-
-        //progressBar.setVisibility(View.VISIBLE);
-
-        StringRequest request = new StringRequest(
-                Request.Method.POST,
-                Constant.URL_GETTYPE_LIST_BYMODEL,
-                response -> {
-
-                    //carMakeArrayList.clear();
-                    try {
-                        JSONObject obj = new JSONObject(response);
-                        JSONArray jsonArray = obj.getJSONArray("cartype");
-                        typeList.clear();
-
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject object = jsonArray.getJSONObject(i);
-
-                            String model_type = object.getString("model_type");
-                            typeList.add(model_type);
-                            typeAdapter = new ArrayAdapter<>(requireContext(),
-                                    android.R.layout.simple_spinner_item, typeList);
-                            typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                            spinType.setAdapter(typeAdapter);
-                        }
-                    }
-                    catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    //progressBar.setVisibility(View.GONE);
-                },
-                error -> {
-                    Toast.makeText(requireContext(), "Silahkan cek kembali internet anda!",
-                            Toast.LENGTH_LONG).show();
-                    //progressBar.setVisibility(View.GONE);
-                }
-        ){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("model_type", modelName);
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
-        requestQueue.add(request);
-    }
-
-    private void getColorSpinnerData() {
-        StringRequest request = new StringRequest(
-                Request.Method.GET,
-                Constant.URL_GETCOLOR_LIST,
-                response -> {
-
-                    //carMakeArrayList.clear();
-                    try {
-                        JSONObject obj = new JSONObject(response);
-                        JSONArray jsonArray = obj.getJSONArray("carcolor");
-                        colorList.clear();
-
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject object = jsonArray.getJSONObject(i);
-
-                            String model_type = object.getString("color");
-                            colorList.add(model_type);
-                            colorAdapter = new ArrayAdapter<>(requireContext(),
-                                    android.R.layout.simple_spinner_item, colorList);
-                            colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                            spinColor.setAdapter(colorAdapter);
-                        }
-                    }
-                    catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    //progressBar.setVisibility(View.GONE);
-                },
-                error -> {
-                    Toast.makeText(requireContext(), "Silahkan cek kembali internet anda!",
-                            Toast.LENGTH_LONG).show();
-                    //progressBar.setVisibility(View.GONE);
-                }
-        );
-        RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
-        requestQueue.add(request);
+        RequestHandler.getInstance(getContext()).addToRequestQueue(stringRequest);
     }
 }

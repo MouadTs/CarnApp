@@ -32,18 +32,17 @@
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Daftar Merek Mobil"
-            android:textAlignment="viewStart"
-            android:textColor="#0e0e0e"
+            android:text="Car Brand List"
+            android:textColor="#0E0E0E"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/btnBack4"
-            app:layout_constraintStart_toEndOf="@+id/btnBack4"
-            app:layout_constraintTop_toTopOf="@+id/btnBack4" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ProgressBar
             android:id="@+id/carmakelist_progressBar"

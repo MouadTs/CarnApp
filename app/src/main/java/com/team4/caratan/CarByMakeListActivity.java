@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -72,7 +73,7 @@ public class CarByMakeListActivity extends AppCompatActivity {
         txtMainMakeName.setText(make_name);
 
         txtMakeDesc = findViewById(R.id.carbymake_makeDesc);
-        txtMakeDesc.setText("Berikut adalah kumpulan mobil bekas dengan merek " + make_name + " yang dijual");
+        txtMakeDesc.setText("Here is a collection of used cars from " + make_name);
 
         getMakeLogo();
 
@@ -110,33 +111,25 @@ public class CarByMakeListActivity extends AppCompatActivity {
     }
 
     private void getMakeLogo() {
-
-        //progressBar.setVisibility(View.VISIBLE);
-
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                Constant.URL_GETCARLOGOSITE,
+                Constant.URL_CAR_MAKES,
                 response -> {
-
-                    //carMakeArrayList.clear();
                     try {
                         JSONObject obj = new JSONObject(response);
-
                         make_site = obj.getString("make_site");
 
                         imageLoader = CustomVolleyRequest.getInstance(this).getImageLoader();
-                        imageLoader.get(Constant.ROOT_URL + obj.getString("make_logo"), // link logo
+                        imageLoader.get(Constant.IMAGE_URL + obj.getString("make_logo"),
                                 ImageLoader.getImageListener(imgMainMakeLogo, R.mipmap.ic_launcher, android.R.drawable.ic_dialog_alert));
                     }
                     catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    //progressBar.setVisibility(View.GONE);
                 },
                 error -> {
-                    Toast.makeText(this, "Silahkan cek kembali internet anda!",
+                    Toast.makeText(this, "Please check your internet connection!",
                             Toast.LENGTH_LONG).show();
-                    //progressBar.setVisibility(View.GONE);
                 }
         ){
             @Override
@@ -146,8 +139,7 @@ public class CarByMakeListActivity extends AppCompatActivity {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(request);
+        RequestHandler.getInstance(this).addToRequestQueue(request);
     }
 
     private void getCarSmallListData() {
@@ -156,7 +148,7 @@ public class CarByMakeListActivity extends AppCompatActivity {
 
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                Constant.URL_GETCAR_LIST_BYMAKE,
+                Constant.URL_CARS_BY_MAKE,
                 response -> {
 
                     carSmallCardArrayList.clear();
@@ -191,7 +183,7 @@ public class CarByMakeListActivity extends AppCompatActivity {
                     //progressBar.setVisibility(View.GONE);
                 },
                 error -> {
-                    Toast.makeText(this, "Silahkan cek kembali internet anda!",
+                    Toast.makeText(this, "Please check your internet connection!",
                             Toast.LENGTH_LONG).show();
                     //progressBar.setVisibility(View.GONE);
                 }
@@ -203,7 +195,6 @@ public class CarByMakeListActivity extends AppCompatActivity {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(request);
+        RequestHandler.getInstance(this).addToRequestQueue(request);
     }
 }

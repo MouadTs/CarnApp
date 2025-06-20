@@ -102,9 +102,9 @@ public class CarMakeListActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                 },
                 error -> {
-                    Toast.makeText(this, "Silahkan cek kembali internet anda!",
-                            Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
+                    Toast.makeText(this, "Please check your internet connection!",
+                            Toast.LENGTH_LONG).show();
                 }
         );
         RequestQueue requestQueue = Volley.newRequestQueue(this);

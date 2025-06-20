@@ -13,8 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @CrossOrigin(origins = "*")
 public class AuthController {
     
@@ -102,6 +104,50 @@ public class AuthController {
         } catch (Exception e) {
             return ResponseEntity.badRequest()
                     .body(AuthResponse.error("Login failed: " + e.getMessage()));
+        }
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<AuthResponse> updateUser(@RequestBody Map<String, String> request) {
+        try {
+            String userId = request.get("user_id");
+            String fullname = request.get("fullname");
+            String phone = request.get("phone");
+            String email = request.get("email");
+            String profilePic = request.get("profile_pic");
+            
+            // Find user by ID
+            User user = userRepository.findById(Long.parseLong(userId))
+                    .orElse(null);
+            
+            if (user == null) {
+                return ResponseEntity.badRequest()
+                        .body(AuthResponse.error("User not found"));
+            }
+            
+            // Update user fields
+            user.setFullName(fullname);
+            user.setPhone(phone);
+            user.setEmail(email);
+            user.setProfilePic(profilePic);
+            
+            User updatedUser = userRepository.save(user);
+            
+            // Create user DTO
+            UserDto userDto = new UserDto(
+                    updatedUser.getId(),
+                    updatedUser.getFullName(),
+                    updatedUser.getEmail(),
+                    updatedUser.getPhone(),
+                    updatedUser.getProfilePic(),
+                    updatedUser.getIsAdmin()
+            );
+            
+            return ResponseEntity.ok(AuthResponse.success("Profile updated successfully", null, userDto));
+            
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                    .body(AuthResponse.error("Update failed: " + e.getMessage()));
         }
     }
 } 

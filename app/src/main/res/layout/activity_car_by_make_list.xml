@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="4dp"
                 android:paddingEnd="4dp"
-                android:text="Berikut adalah kumpulan mobil bekas dari BRAND yang dijual"
+                android:text="Here is a collection of used cars from BRAND for sale"
                 android:textColor="#2C2C2C"
                 android:textSize="10sp" />
 

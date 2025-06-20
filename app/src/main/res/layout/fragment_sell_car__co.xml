@@ -121,7 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Merek"
+                    android:text="Brand"
                     android:textSize="16sp"
                     android:textStyle="italic" />
 
@@ -175,7 +175,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Tipe"
+                    android:text="Type"
                     android:textSize="16sp"
                     android:textStyle="italic" />
 
@@ -202,7 +202,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Warna"
+                    android:text="Color"
                     android:textSize="16sp"
                     android:textStyle="italic" />
 
@@ -211,7 +211,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Hitam"
+                    android:text="White"
                     android:textAlignment="textEnd"
                     android:textColor="#0e0e0e"
                     android:textSize="16sp" />
@@ -229,7 +229,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Tahun"
+                    android:text="Year"
                     android:textSize="16sp"
                     android:textStyle="italic" />
 
@@ -238,7 +238,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="2019"
+                    android:text="2020"
                     android:textAlignment="textEnd"
                     android:textColor="#0e0e0e"
                     android:textSize="16sp" />
@@ -256,7 +256,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Kilometer"
+                    android:text="Mileage"
                     android:textSize="16sp"
                     android:textStyle="italic" />
 
@@ -283,7 +283,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Harga"
+                    android:text="Price"
                     android:textSize="16sp"
                     android:textStyle="italic" />
 
@@ -311,7 +311,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Deskripsi"
+                    android:text="Description"
                     android:textSize="16sp"
                     android:textStyle="italic" />
 
@@ -321,7 +321,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:justificationMode="inter_word"
-                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eget lobortis orci. Etiam interdum lacus in lacinia accumsan. Maecenas sapien lectus, posuere a iaculis ac, condimentum ut libero. Quisque molestie sagittis nulla fringilla imperdiet. Ut maximus auctor mollis. Praesent aliquet turpis ac justo convallis, quis posuere est bibendum. Quisque dolor ipsum."
+                    android:text="Well-maintained car in excellent condition"
                     android:textAlignment="textEnd"
                     android:textColor="#0e0e0e"
                     android:textSize="14sp" />
@@ -353,7 +353,7 @@
                 android:id="@+id/textView14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Total Biaya"
+                android:text="Total Cost"
                 android:textSize="12sp" />
 
             <TextView

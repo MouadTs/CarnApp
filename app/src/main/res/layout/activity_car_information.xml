@@ -176,44 +176,75 @@
                 android:layout_marginTop="16dp">
 
                 <TextView
-                    android:id="@+id/info_txtPostDate"
+                    android:id="@+id/tvPostedOn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="Diunggah pada 17/12/2022"
-                    android:textColor="#C6C6C6"
-                    android:textSize="11sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:text="Posted on: 2024-01-01"
+                    android:textColor="#666666"
+                    android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/info_txtViewCount"
+                    android:id="@+id/tvViewed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="1dp"
-                    android:text="Dilihat 9,999,999 kali"
-                    android:textAlignment="viewEnd"
-                    android:textColor="#A5A5A5"
-                    android:textSize="11sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView11"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView11"
-                    app:layout_constraintTop_toTopOf="@+id/imageView11" />
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:text="Viewed 0 times"
+                    android:textColor="#666666"
+                    android:textSize="12sp" />
 
-                <ImageView
-                    android:id="@+id/imageView11"
+                <TextView
+                    android:id="@+id/tvYear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Year: 2020"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:text="Color: White"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvSeats"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:text="Seats: 5"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_eye" />
+                    android:text="Description: Well-maintained car in excellent condition"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvSeller"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Seller: John Doe"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -233,7 +264,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:text="Detail Mobil"
+                    android:text="Car Details"
                     android:textAlignment="center"
                     android:textColor="#5E5E5E"
                     android:textSize="16sp"
@@ -267,7 +298,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Tahun"
+                                android:text="Year"
                                 android:textSize="11sp" />
 
                             <TextView
@@ -300,7 +331,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Kilometer"
+                                android:text="Mileage"
                                 android:textSize="11sp" />
 
                             <TextView
@@ -342,14 +373,14 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Bahan Bakar"
+                                android:text="Fuel Type"
                                 android:textSize="11sp" />
 
                             <TextView
                                 android:id="@+id/info_txtFuel"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Bensin"
+                                android:text="Gasoline"
                                 android:textColor="#5E5E5E"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -375,7 +406,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Transmisi"
+                                android:text="Transmission"
                                 android:textSize="11sp" />
 
                             <TextView
@@ -417,7 +448,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Ruang Bakar (CC)"
+                                android:text="Engine Capacity (CC)"
                                 android:textSize="11sp" />
 
                             <TextView
@@ -450,7 +481,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Silinder"
+                                android:text="Cylinder"
                                 android:textSize="11sp" />
 
                             <TextView
@@ -492,14 +523,14 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Warna"
+                                android:text="Color"
                                 android:textSize="11sp" />
 
                             <TextView
                                 android:id="@+id/info_txtColor"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Putih"
+                                android:text="White"
                                 android:textColor="#5E5E5E"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -527,7 +558,7 @@
                                 android:id="@+id/textView20"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Jumlah Kursi"
+                                android:text="Number of Seats"
                                 android:textSize="11sp" />
 
                             <TextView
@@ -549,7 +580,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="Deskripsi Mobil"
+                android:text="Car Description"
                 android:textAlignment="center"
                 android:textColor="#5E5E5E"
                 android:textSize="16sp"
@@ -631,7 +662,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginBottom="24dp"
-                        android:text="Penjual"
+                        android:text="Seller"
                         android:textAlignment="center"
                         android:textColor="#5E5E5E"
                         android:textSize="12sp"

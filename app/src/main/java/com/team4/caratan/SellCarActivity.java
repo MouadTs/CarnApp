@@ -19,10 +19,8 @@ public class SellCarActivity extends AppCompatActivity {
     private ProgressBar progress_h;
     private TextView title_sell;
 
-    private String selectedMake, selectedModel, selectedType,
-                    selectedColor, year, mileage, price, desc;
-
-    private Bitmap photo1, photo2, photo3;
+    public String carMake, carModel, carType, carColor, carYear, carMileage, carPrice, carDesc;
+    public Bitmap photo1, photo2, photo3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +33,7 @@ public class SellCarActivity extends AppCompatActivity {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
 
-        title_sell = findViewById(R.id.tittle_sell);
+        title_sell = findViewById(R.id.title_sell);
 
         btnBack = findViewById(R.id.SELL_btnBack);
         btnBack.setOnClickListener(view -> finish());
@@ -48,7 +46,7 @@ public class SellCarActivity extends AppCompatActivity {
 
     public void openSellCar_Info() {
 
-        title_sell.setText("Lengkapi info mengenai mobilmu");
+        title_sell.setText("Complete your car information");
         SellCar_InfoFragment CarInfo = new SellCar_InfoFragment();
 
         FragmentTransaction fragTrans = getSupportFragmentManager()
@@ -61,7 +59,7 @@ public class SellCarActivity extends AppCompatActivity {
 
     public void openSellCar_Photo() {
 
-        title_sell.setText("Upload foto mobilmu");
+        title_sell.setText("Upload your car photos");
         SellCar_PhotoFragment CarPhoto = new SellCar_PhotoFragment();
 
         FragmentTransaction fragTrans = getSupportFragmentManager()
@@ -74,7 +72,7 @@ public class SellCarActivity extends AppCompatActivity {
 
     public void openSellCar_Final() {
 
-        title_sell.setText("Cek kembali info tentang mobilmu");
+        title_sell.setText("Check your car information again");
         SellCar_CoFragment CarCo = new SellCar_CoFragment();
 
         FragmentTransaction fragTrans = getSupportFragmentManager()
@@ -85,18 +83,6 @@ public class SellCarActivity extends AppCompatActivity {
         fragTrans.replace(R.id.SELL_frame, CarCo).commit();
     }
 
-    public void set_info(String selectedMake_, String selectedModel_, String selectedType_, String selectedColor_,
-                         String year_, String mileage_, String price_, String desc_) {
-        this.selectedMake = selectedMake_;
-        this.selectedModel = selectedModel_;
-        this.selectedType = selectedType_;
-        this.selectedColor = selectedColor_;
-        this.year = year_;
-        this.mileage = mileage_;
-        this.price = price_;
-        this.desc = desc_;
-    }
-
     public void set_photo(Bitmap a, Bitmap b, Bitmap c) {
         this.photo1 = a;
         this.photo2 = b;
@@ -104,35 +90,35 @@ public class SellCarActivity extends AppCompatActivity {
     }
 
     public String getSelectedMake() {
-        return selectedMake;
+        return carMake;
     }
 
     public String getSelectedModel() {
-        return selectedModel;
+        return carModel;
     }
 
     public String getSelectedType() {
-        return selectedType;
+        return carType;
     }
 
     public String getSelectedColor() {
-        return selectedColor;
+        return carColor;
     }
 
     public String getYear() {
-        return year;
+        return carYear;
     }
 
     public String getMileage() {
-        return mileage;
+        return carMileage;
     }
 
     public String getPrice() {
-        return price;
+        return carPrice;
     }
 
     public String getDesc() {
-        return desc;
+        return carDesc;
     }
 
     public Bitmap getPhoto1() {

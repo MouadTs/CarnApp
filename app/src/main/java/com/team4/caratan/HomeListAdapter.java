@@ -64,7 +64,7 @@ public class HomeListAdapter extends ArrayAdapter<carSmallCard> {
         car_logo = (ImageView) view.findViewById(R.id.imgCarLogo);
         car_mainPhoto = (ImageView) view.findViewById(R.id.imgCarMainPhoto);
 
-        String CarLogo_URL = Constant.ROOT_URL + arrayListCarSmallCard.get(position).getCar_makeLogo();
+        String CarLogo_URL = Constant.IMAGE_URL + arrayListCarSmallCard.get(position).getCar_makeLogo();
         /*
         try {
             inputStream = new URL(CarLogo_URL).openStream();
@@ -78,7 +78,7 @@ public class HomeListAdapter extends ArrayAdapter<carSmallCard> {
 
          */
 
-        String CarMainPhoto_URL = Constant.ROOT_URL + arrayListCarSmallCard.get(position).getCar_mainPhoto();
+        String CarMainPhoto_URL = Constant.IMAGE_URL + arrayListCarSmallCard.get(position).getCar_mainPhoto();
         /*
         try {
             inputStream = new URL(CarMainPhoto_URL).openStream();

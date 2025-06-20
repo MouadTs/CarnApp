@@ -91,7 +91,7 @@ public class EditProfileActivity extends AppCompatActivity {
         edtFNama.setText(users.getUser_fullname());
         edtTelp.setText(users.getUser_phone());
 
-        String imgurl = Constant.ROOT_URL + users.getUser_profilepic();
+        String imgurl = Constant.IMAGE_URL + users.getUser_profilepic();
         new fetchImage(imgurl).start();
 
         ActivityResultLauncher<Intent> activityResultLauncher =
@@ -142,7 +142,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         }
                     });
                 } else {
-                    Toast.makeText(EditProfileActivity.this, "Tidak ada gambar untuk di-rotate!",
+                    Toast.makeText(EditProfileActivity.this, "No image to rotate!",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -178,19 +178,19 @@ public class EditProfileActivity extends AppCompatActivity {
             byte[] bytes = byteArrayOutputStream.toByteArray();
             base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
         } else {
-            Toast.makeText(EditProfileActivity.this, "Gambar masih kosong!",
+            Toast.makeText(EditProfileActivity.this, "Image is still empty!",
                     Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (fnameUser.isEmpty()) {
-            edtFNama.setError("Nama perlu diisi!");
+            edtFNama.setError("Name must be filled!");
             edtFNama.requestFocus();
             return;
         }
 
         if (fnameUser.length() > 30) {
-            edtFNama.setError("Nama terlalu panjang!");
+            edtFNama.setError("Name is too long!");
             edtFNama.requestFocus();
             return;
         }
@@ -229,14 +229,14 @@ public class EditProfileActivity extends AppCompatActivity {
                                     );
                              */
 
-                            Toast.makeText(getApplicationContext(), obj.getString("fullname"),
+                            Toast.makeText(getApplicationContext(), "Successfully updated account details!",
                                     Toast.LENGTH_LONG).show();
 
                             startActivity(new Intent(EditProfileActivity.this, MainActivity.class));
                             finish();
 
                         } else {
-                            Toast.makeText(getApplicationContext(), "Berhasil mengubah detail akun!",
+                            Toast.makeText(getApplicationContext(), obj.getString("message"),
                                     Toast.LENGTH_LONG).show();
                         }
 
@@ -247,7 +247,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 error -> {
                     progressBar.setVisibility(View.GONE);
 
-                    Toast.makeText(getApplicationContext(), "Silahkan cek kembali internet anda!",
+                    Toast.makeText(getApplicationContext(), "Please check your internet connection!",
                             Toast.LENGTH_SHORT).show();
                 }
         ){

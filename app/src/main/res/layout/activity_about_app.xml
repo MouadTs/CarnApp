@@ -69,24 +69,41 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:justificationMode="inter_word"
-            android:text="CaRatan merupakan sebuah program aplikasi Android ciptaan kelompok 4 yang memiliki tujuan sebagai proyek akhir dari mata kuliah IS534-B Mobile Application Development. CaRatan mempermudah penjual mobil bekas dengan menjadi media pengiklanan serta sebagai pencarian mobil bekas bagi pembeli."
-            android:textColor="#0E0E0E" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="Anggota Kelompok 4"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="CaRatan is a car buying and selling application that makes it easy for users to find and sell used cars. This application provides various features such as car search, car information, and secure payment methods."
             android:textAlignment="center"
             android:textColor="#0E0E0E"
-            android:textSize="16sp"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="Team 4 Members:"
+            android:textAlignment="center"
+            android:textColor="#0E0E0E"
+            android:textSize="18sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:text="1. John Doe - Project Manager\n2. Jane Smith - Developer\n3. Bob Johnson - Designer\n4. Alice Brown - Tester"
+            android:textAlignment="center"
+            android:textColor="#0E0E0E"
+            android:textSize="14sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -284,7 +301,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:text="Lokasi Kantor Pusat"
+            android:text="Head Office Location"
             android:textAlignment="center"
             android:textColor="#0E0E0E"
             android:textSize="16sp"

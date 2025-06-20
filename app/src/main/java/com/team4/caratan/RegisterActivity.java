@@ -69,31 +69,31 @@ public class RegisterActivity extends AppCompatActivity {
         String pw = edtPw.getText().toString().trim();
 
         if (nama.isEmpty()) {
-            edtNama.setError(getString(R.string.error_username_required));
+            edtNama.setError("Username must be filled!");
             edtNama.requestFocus();
             return;
         }
 
         if (email.isEmpty()) {
-            edtEmail.setError(getString(R.string.error_email_required));
+            edtEmail.setError("Email must be filled!");
             edtEmail.requestFocus();
             return;
         }
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            edtEmail.setError(getString(R.string.error_email_invalid));
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            edtEmail.setError("Invalid email format!");
             edtEmail.requestFocus();
             return;
         }
 
         if (pw.isEmpty()) {
-            edtPw.setError(getString(R.string.error_password_required));
+            edtPw.setError("Password must be filled!");
             edtPw.requestFocus();
             return;
         }
 
-        if (pw.length()<6) {
-            edtPw.setError(getString(R.string.error_password_too_short));
+        if (pw.length() < 6) {
+            edtPw.setError("Password is too short, minimum 6 characters!");
             edtPw.requestFocus();
             return;
         }
@@ -106,7 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     try {
                         JSONObject jsonObject = new JSONObject(response);
-                        Toast.makeText(getApplicationContext(), jsonObject.getString("message"),
+                        Toast.makeText(getApplicationContext(), "Successfully registered!",
                                 Toast.LENGTH_LONG).show();
                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                         finish();
@@ -116,16 +116,28 @@ public class RegisterActivity extends AppCompatActivity {
                 },
                 error -> {
                     progressBar.setVisibility(View.GONE);
-                    Toast.makeText(getApplicationContext(), getString(R.string.error_internet_connection),
+                    Toast.makeText(getApplicationContext(), "Registration failed!",
                             Toast.LENGTH_LONG).show();
                 }){
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("fullname",nama);
-                params.put("email",email);
-                params.put("password",pw);
-                return params;
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    JSONObject jsonBody = new JSONObject();
+                    jsonBody.put("fullName", edtNama.getText().toString().trim());
+                    jsonBody.put("email", edtEmail.getText().toString().trim());
+                    jsonBody.put("password", edtPw.getText().toString().trim());
+                    return jsonBody.toString().getBytes("utf-8");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                return headers;
             }
         };
 

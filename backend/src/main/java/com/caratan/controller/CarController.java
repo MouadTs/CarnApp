@@ -7,10 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/cars")
+@RequestMapping("/api/cars")
 @CrossOrigin(origins = "*")
 public class CarController {
     
@@ -38,6 +39,26 @@ public class CarController {
     public ResponseEntity<List<String>> getAllMakes() {
         List<String> makes = carService.getPopularMakes();
         return ResponseEntity.ok(makes);
+    }
+    
+    @GetMapping("/make/{makeName}")
+    public ResponseEntity<List<Car>> getCarsByMake(@PathVariable String makeName) {
+        List<Car> cars = carService.getCarsByMake(makeName);
+        return ResponseEntity.ok(cars);
+    }
+    
+    @GetMapping("/logo/{makeName}")
+    public ResponseEntity<String> getMakeLogo(@PathVariable String makeName) {
+        // For now, return a placeholder logo URL
+        String logoUrl = "/images/" + makeName.toLowerCase() + "_logo.png";
+        return ResponseEntity.ok(logoUrl);
+    }
+    
+    @PostMapping("/logo")
+    public ResponseEntity<String> getMakeLogoByPost(@RequestBody Map<String, String> request) {
+        String makeName = request.get("make_name");
+        String logoUrl = "/images/" + makeName.toLowerCase() + "_logo.png";
+        return ResponseEntity.ok(logoUrl);
     }
     
     @GetMapping("/search")

@@ -69,6 +69,12 @@ public class CarService {
         return jdbcTemplate.queryForList(sql, String.class);
     }
     
+    public List<Car> getCarsByMake(String makeName) {
+        String sql = "SELECT * FROM cars WHERE make = ? ORDER BY created_at DESC";
+        
+        return jdbcTemplate.query(sql, new CarRowMapper(), makeName);
+    }
+    
     // RowMapper for JDBC results
     private static class CarRowMapper implements RowMapper<Car> {
         @Override

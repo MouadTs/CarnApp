@@ -27,7 +27,7 @@
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_weight="1"
-                android:text="Rincian Pembelian"
+                android:text="Purchase Details"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -54,7 +54,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Biaya Pemasangan Iklan"
+                        android:text="Advertisement Setup Fee"
                         android:textSize="16sp"
                         android:textStyle="italic" />
 
@@ -81,7 +81,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Biaya Promosi"
+                        android:text="Promotion Fee"
                         android:textSize="16sp"
                         android:textStyle="italic" />
 
@@ -108,7 +108,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="PPN"
+                        android:text="VAT"
                         android:textSize="16sp"
                         android:textStyle="italic" />
 
@@ -160,7 +160,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_weight="1"
-                android:text="Metode Pembayaran"
+                android:text="Payment Method"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -240,7 +240,7 @@
                 android:id="@+id/textView14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Total Biaya"
+                android:text="Total Cost"
                 android:textSize="12sp" />
 
             <TextView

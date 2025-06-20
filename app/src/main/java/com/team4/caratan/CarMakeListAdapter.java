@@ -61,7 +61,7 @@ public class CarMakeListAdapter extends ArrayAdapter<carMakeGetSet> {
 
         Bitmap carLogo = null;
 
-        String CarLogo_URL = Constant.ROOT_URL + arrayListCarMake.get(position).getMake_logo();
+        String CarLogo_URL = Constant.IMAGE_URL + arrayListCarMake.get(position).getMake_logo();
         try {
             inputStream = new URL(CarLogo_URL).openStream();
             carLogo = BitmapFactory.decodeStream(inputStream);
@@ -74,7 +74,7 @@ public class CarMakeListAdapter extends ArrayAdapter<carMakeGetSet> {
          */
 
         imageLoader = CustomVolleyRequest.getInstance(context).getImageLoader();
-        imageLoader.get(Constant.ROOT_URL + arrayListCarMake.get(position).getMake_logo(),
+        imageLoader.get(Constant.IMAGE_URL + arrayListCarMake.get(position).getMake_logo(),
                 ImageLoader.getImageListener(car_logo, R.mipmap.ic_launcher, android.R.drawable.ic_dialog_alert));
 
         if(Objects.equals(arrayListCarMake.get(position).getCounts(), "0")) {

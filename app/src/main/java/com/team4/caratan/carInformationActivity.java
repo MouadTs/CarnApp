@@ -115,8 +115,7 @@ public class carInformationActivity extends AppCompatActivity implements OnMapRe
         txtCarDesc = findViewById(R.id.info_txtDesc);
         txtCarPrice = findViewById(R.id.info_txtPrice);
         txtCarPenjual = findViewById(R.id.info_txtNamaPenjual);
-        txtPostDate = findViewById(R.id.info_txtPostDate);
-        txtViewCount = findViewById(R.id.info_txtViewCount);
+
 
         imgCarLogo = findViewById(R.id.info_imgLogo);
         imgCarSeller = findViewById(R.id.info_imgProfil);
@@ -177,7 +176,7 @@ public class carInformationActivity extends AppCompatActivity implements OnMapRe
                         JSONObject main = jsonArray.getJSONObject(0);
                         SliderUtils slide1 = new SliderUtils();
 
-                        slide1.setSliderImageURL(Constant.ROOT_URL + main.getString("car_mainPhoto"));
+                        slide1.setSliderImageURL(Constant.IMAGE_URL + main.getString("car_mainPhoto"));
 
                         sliderImg.add(slide1);
 
@@ -185,7 +184,7 @@ public class carInformationActivity extends AppCompatActivity implements OnMapRe
                             JSONObject object = jsonArray.getJSONObject(i);
                             SliderUtils sliderUtils = new SliderUtils();
 
-                            sliderUtils.setSliderImageURL(Constant.ROOT_URL + object.getString("photos"));
+                            sliderUtils.setSliderImageURL(Constant.IMAGE_URL + object.getString("photos"));
 
                             sliderImg.add(sliderUtils);
                         }
@@ -199,10 +198,9 @@ public class carInformationActivity extends AppCompatActivity implements OnMapRe
                     white_bg.setVisibility(View.GONE);
                 },
                 error -> {
-                    Toast.makeText(carInformationActivity.this, "Silahkan cek kembali internet anda!",
-                            Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
-                    white_bg.setVisibility(View.GONE);
+                    Toast.makeText(carInformationActivity.this, "Please check your internet connection!",
+                            Toast.LENGTH_LONG).show();
                 }
         ) {
             @Override
@@ -256,8 +254,8 @@ public class carInformationActivity extends AppCompatActivity implements OnMapRe
 
                         imageLoader = CustomVolleyRequest.getInstance(this).getImageLoader();
 
-                        String carLogo = Constant.ROOT_URL + make_logo;
-                        String carSeller = Constant.ROOT_URL + profile_pic;
+                        String carLogo = Constant.IMAGE_URL + make_logo;
+                        String carSeller = Constant.IMAGE_URL + profile_pic;
 
                         imageLoader.get(carLogo,
                                 ImageLoader.getImageListener(imgCarLogo, R.mipmap.ic_launcher, android.R.drawable.ic_dialog_alert));
@@ -297,10 +295,9 @@ public class carInformationActivity extends AppCompatActivity implements OnMapRe
                     white_bg.setVisibility(View.GONE);
                 },
                 error -> {
-                    Toast.makeText(carInformationActivity.this, "Silahkan cek kembali internet anda!",
-                            Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
-                    white_bg.setVisibility(View.GONE);
+                    Toast.makeText(carInformationActivity.this, "Please check your internet connection!",
+                            Toast.LENGTH_LONG).show();
                 }
         ) {
             @Override
@@ -323,8 +320,8 @@ public class carInformationActivity extends AppCompatActivity implements OnMapRe
                 Constant.URL_UPDATEVIEWS,
                 response -> {
                 },
-                error -> Toast.makeText(carInformationActivity.this, "Silahkan cek kembali internet anda!",
-                        Toast.LENGTH_SHORT).show()
+                error -> Toast.makeText(carInformationActivity.this, "Please check your internet connection!",
+                        Toast.LENGTH_LONG).show()
         ) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {

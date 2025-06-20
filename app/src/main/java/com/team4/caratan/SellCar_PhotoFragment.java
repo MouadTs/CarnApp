@@ -152,15 +152,15 @@ public class SellCar_PhotoFragment extends Fragment {
             public void onClick(View view) {
 
                 if(bmp_photo1 == null) {
-                    Toast.makeText(requireContext(), "Foto 1 masih kosong!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireContext(), "Photo 1 cannot be empty!", Toast.LENGTH_LONG).show();
                     return;
                 }
                 if(bmp_photo2 == null) {
-                    Toast.makeText(requireContext(), "Foto 2 masih kosong!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireContext(), "Photo 2 cannot be empty!", Toast.LENGTH_LONG).show();
                     return;
                 }
                 if(bmp_photo3 == null) {
-                    Toast.makeText(requireContext(), "Foto 3 masih kosong!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireContext(), "Photo 3 cannot be empty!", Toast.LENGTH_LONG).show();
                     return;
                 }
 

@@ -1,3 +1,4 @@
+C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\controller\ColorsController.java
 C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\entity\User.java
 C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\dto\RegisterRequest.java
 C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\repository\CarRepository.java
@@ -8,9 +9,11 @@ C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\
 C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\repository\UserRepository.java
 C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\config\SecurityConfig.java
 C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\dto\UserDto.java
+C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\controller\ModelsController.java
 C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\dto\AuthResponse.java
 C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\entity\Car.java
 C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\service\CarService.java
 C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\controller\CarController.java
+C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\controller\MakesController.java
 C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\config\DatabaseConfig.java
 C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\controller\AuthController.java

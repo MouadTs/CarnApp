@@ -33,12 +33,17 @@
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <TextView
-            android:id="@+id/tittle_sell"
+            android:id="@+id/title_sell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lengkapi info mengenai mobilmu"
-            app:layout_constraintStart_toStartOf="@+id/progress_sell"
-            app:layout_constraintTop_toTopOf="@+id/SELL_btnBack" />
+            android:layout_marginStart="16dp"
+            android:text="Complete your car information"
+            android:textColor="#0E0E0E"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ProgressBar
             android:id="@+id/progress_sell"
@@ -51,7 +56,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/SELL_btnBack"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/SELL_btnBack"
-            app:layout_constraintTop_toBottomOf="@+id/tittle_sell" />
+            app:layout_constraintTop_toBottomOf="@+id/title_sell" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

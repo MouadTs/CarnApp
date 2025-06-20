@@ -117,9 +117,6 @@ public class SellCar_CoFragment extends Fragment {
 
     private void uploadCar() {
 
-        Toast.makeText(requireContext(), "Upload Car",
-                Toast.LENGTH_SHORT).show();
-
         dbHandler = new mDBhandler(requireContext());
 
         try {
@@ -128,16 +125,10 @@ public class SellCar_CoFragment extends Fragment {
             e.printStackTrace();
         }
 
-        Toast.makeText(requireContext(), "SQLite Jalan",
-                Toast.LENGTH_SHORT).show();
-
         Users users = dbHandler.getUsers();
         final String idUser = users.getUser_id();
 
         dbHandler.close();
-
-        Toast.makeText(requireContext(), idUser,
-                Toast.LENGTH_SHORT).show();
 
         final String make_name = make;
         final String model_name = model;
@@ -159,22 +150,13 @@ public class SellCar_CoFragment extends Fragment {
         byte[] bytes1 = byteArrayOutputStream1.toByteArray();
         base64Image_1 = Base64.encodeToString(bytes1, Base64.DEFAULT);
 
-        Toast.makeText(requireContext(), "Gambar 1 keload",
-                Toast.LENGTH_SHORT).show();
-
         bp2.compress(Bitmap.CompressFormat.JPEG, 95, byteArrayOutputStream2);
         byte[] bytes2 = byteArrayOutputStream2.toByteArray();
         base64Image_2 = Base64.encodeToString(bytes2, Base64.DEFAULT);
 
-        Toast.makeText(requireContext(), "Gambar 2 keload",
-                Toast.LENGTH_SHORT).show();
-
         bp1.compress(Bitmap.CompressFormat.JPEG, 95, byteArrayOutputStream3);
         byte[] bytes3 = byteArrayOutputStream3.toByteArray();
         base64Image_3 = Base64.encodeToString(bytes3, Base64.DEFAULT);
-
-        Toast.makeText(requireContext(), "Gambar 3 keload",
-                Toast.LENGTH_SHORT).show();
 
         //progressBar.setVisibility(View.VISIBLE);
 
@@ -187,8 +169,8 @@ public class SellCar_CoFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(response);
 
-                        Toast.makeText(requireContext(), "Mengambil response berhasil",
-                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), "Successfully retrieved response",
+                                Toast.LENGTH_LONG).show();
 
                         if (!obj.getBoolean("error")) {
 
@@ -210,8 +192,8 @@ public class SellCar_CoFragment extends Fragment {
                 error -> {
                     //progressBar.setVisibility(View.GONE);
 
-                    Toast.makeText(requireContext(), "Silahkan cek kembali internet anda!",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Please check your internet connection!",
+                            Toast.LENGTH_LONG).show();
                 }
         ){
             @Override
