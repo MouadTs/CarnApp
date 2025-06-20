@@ -1,0 +1,17 @@
+com\caratan\service\CarService.class
+com\caratan\entity\User.class
+com\caratan\dto\RegisterRequest.class
+com\caratan\controller\CarController.class
+com\caratan\dto\LoginRequest.class
+com\caratan\config\DataInitializer.class
+com\caratan\dto\AuthResponse.class
+com\caratan\config\DatabaseConfig.class
+com\caratan\entity\Car.class
+com\caratan\controller\AuthController.class
+com\caratan\CaratanApplication.class
+com\caratan\repository\CarRepository.class
+com\caratan\dto\UserDto.class
+com\caratan\service\CarService$CarRowMapper.class
+com\caratan\repository\UserRepository.class
+com\caratan\security\JwtUtil.class
+com\caratan\config\SecurityConfig.class
