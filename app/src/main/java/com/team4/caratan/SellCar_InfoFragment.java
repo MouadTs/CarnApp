@@ -84,6 +84,33 @@ public class SellCar_InfoFragment extends Fragment {
                 type = edtType.getText().toString().trim();
                 color = edtColor.getText().toString().trim();
 
+                // Validate car brand selection
+                if (selectedMake == null || selectedMake.isEmpty()) {
+                    Toast.makeText(requireContext(), "Please select a car brand!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Validate car model
+                if (model.isEmpty()) {
+                    edtModel.setError("Car Model Must Be Filled!");
+                    edtModel.requestFocus();
+                    return;
+                }
+
+                // Validate car type
+                if (type.isEmpty()) {
+                    edtType.setError("Car Type Must Be Filled!");
+                    edtType.requestFocus();
+                    return;
+                }
+
+                // Validate car color
+                if (color.isEmpty()) {
+                    edtColor.setError("Car Color Must Be Filled!");
+                    edtColor.requestFocus();
+                    return;
+                }
+
                 if (year.isEmpty()) {
                     edtYear.setError("Car Year Must Be Filled!");
                     edtYear.requestFocus();
@@ -138,32 +165,34 @@ public class SellCar_InfoFragment extends Fragment {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.URL_GET_MAKE,
                 response -> {
                     try {
-                        JSONObject jsonObject = new JSONObject(response);
+                        // The backend returns a simple array of strings, not a JSON object
+                        JSONArray jsonArray = new JSONArray(response);
 
-                        if (!jsonObject.getBoolean("error")) {
-                            JSONArray jsonArray = jsonObject.getJSONArray("makes");
-
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject object = jsonArray.getJSONObject(i);
-
-                                String makeName = object.getString("make_name");
-                                makeList.add(makeName);
-                            }
-
-                            ArrayAdapter<String> makeAdapter = new ArrayAdapter<>(getContext(),
-                                    android.R.layout.simple_spinner_item, makeList);
-                            makeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                            spinnerBrand.setAdapter(makeAdapter);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            String makeName = jsonArray.getString(i);
+                            makeList.add(makeName);
                         }
+
+                        ArrayAdapter<String> makeAdapter = new ArrayAdapter<>(getContext(),
+                                android.R.layout.simple_spinner_item, makeList);
+                        makeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                        spinnerBrand.setAdapter(makeAdapter);
+                        
+                        // Set a default selection if available
+                        if (makeList.size() > 0) {
+                            selectedMake = makeList.get(0);
+                        }
+                        
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Toast.makeText(requireContext(), "Error parsing car makes data",
+                                Toast.LENGTH_LONG).show();
                     }
                 },
                 error -> {
                     Toast.makeText(requireContext(), "Please check your internet connection!",
                             Toast.LENGTH_LONG).show();
-                    //progressBar.setVisibility(View.GONE);
                 }
         );
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.SQLException;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -98,6 +99,10 @@ public class LoginActivity extends AppCompatActivity {
                             JSONObject userObj = obj.getJSONObject("user");
                             String token = obj.getString("token");
                             
+                            Log.d("LoginActivity", "JWT Token received: " + token.substring(0, Math.min(20, token.length())) + "...");
+                            Log.d("LoginActivity", "User ID: " + userObj.getString("id"));
+                            Log.d("LoginActivity", "User Email: " + userObj.getString("email"));
+                            
                             dbHandler.createUsers(
                                 userObj.getString("id"), 
                                 userObj.getString("fullName"),
@@ -108,7 +113,14 @@ public class LoginActivity extends AppCompatActivity {
                             );
 
                             SharedPrefManager.getInstance(getApplicationContext())
-                                    .loginUser(userObj.getString("email"));
+                                    .loginUser(
+                                        userObj.getString("email"),
+                                        token,
+                                        userObj.getString("id"),
+                                        userObj.getString("fullName")
+                                    );
+
+                            Log.d("LoginActivity", "JWT Token stored successfully");
 
                             dbHandler.close();
 

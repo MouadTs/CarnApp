@@ -64,7 +64,7 @@ public class CarService {
     }
     
     public List<String> getPopularMakes() {
-        String sql = "SELECT make, COUNT(*) as count FROM cars GROUP BY make ORDER BY count DESC LIMIT 10";
+        String sql = "SELECT DISTINCT make FROM cars ORDER BY make ASC";
         
         return jdbcTemplate.queryForList(sql, String.class);
     }
@@ -93,6 +93,17 @@ public class CarService {
             car.setDescription(rs.getString("description"));
             car.setPhotos(rs.getString("photos"));
             car.setViews(rs.getInt("views"));
+            
+            // Set location if available, otherwise use default
+            String location = rs.getString("location");
+            car.setLocation(location != null ? location : "Jakarta");
+            
+            // Set make logo based on make name
+            String make = rs.getString("make");
+            if (make != null) {
+                car.setMakeLogo("/images/" + make.toLowerCase() + "_logo.png");
+            }
+            
             car.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
             car.setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime());
             return car;

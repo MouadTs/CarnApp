@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 @CrossOrigin(origins = "*")
 public class AuthController {
     
@@ -32,8 +32,11 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
         try {
+            System.out.println("Registration request received: " + request.getFullName() + ", " + request.getEmail());
+            
             // Check if user already exists
             if (userRepository.existsByEmail(request.getEmail())) {
+                System.out.println("User already exists with email: " + request.getEmail());
                 return ResponseEntity.badRequest()
                         .body(AuthResponse.error("User with this email already exists"));
             }
@@ -46,6 +49,7 @@ public class AuthController {
             );
             
             User savedUser = userRepository.save(user);
+            System.out.println("User saved successfully with ID: " + savedUser.getId());
             
             // Generate JWT token
             String token = jwtUtil.generateToken(savedUser.getEmail());
@@ -60,9 +64,12 @@ public class AuthController {
                     savedUser.getIsAdmin()
             );
             
+            System.out.println("Registration successful for: " + savedUser.getEmail());
             return ResponseEntity.ok(AuthResponse.success("User registered successfully", token, userDto));
             
         } catch (Exception e) {
+            System.err.println("Registration failed with error: " + e.getMessage());
+            e.printStackTrace();
             return ResponseEntity.badRequest()
                     .body(AuthResponse.error("Registration failed: " + e.getMessage()));
         }
@@ -149,5 +156,10 @@ public class AuthController {
             return ResponseEntity.badRequest()
                     .body(AuthResponse.error("Update failed: " + e.getMessage()));
         }
+    }
+
+    @GetMapping("/test")
+    public ResponseEntity<String> test() {
+        return ResponseEntity.ok("Auth controller is working!");
     }
 } 

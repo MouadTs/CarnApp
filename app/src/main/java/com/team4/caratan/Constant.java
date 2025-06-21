@@ -11,29 +11,25 @@ public class Constant {
     public static final String URL_REGISTER = API_URL + "auth/register";
     public static final String URL_UPDATEUSER = API_URL + "auth/update";
 
-    // --- Cars ---
+    // --- Cars (Protected) ---
     public static final String URL_CARS = API_URL + "cars";
-    public static final String URL_CAR_MAKES = API_URL + "cars/makes";
-    public static final String URL_CARS_BY_MAKE = API_URL + "cars/make/"; // Append make name
     public static final String URL_GETCAR_LIST = API_URL + "cars";
+    public static final String URL_ADDCAR = API_URL + "cars/add"; // Form data endpoint
+    public static final String URL_GETCARINFO = API_URL + "cars/info"; // Car info endpoint
+    public static final String URL_UPDATEVIEWS = API_URL + "cars/update-views"; // Update views endpoint
+    public static final String URL_GETCARPHOTOS = API_URL + "cars/photos"; // Car photos endpoint
 
-    // --- Data Retrieval Endpoints ---
-    public static final String URL_GETCARINFO = API_URL + "cars/"; // Append car id
-    public static final String URL_UPDATEVIEWS = API_URL + "cars/"; // Append car id + /views
-
-    // Car management endpoints
-    public static final String URL_GETCARPHOTOS = API_URL + "cars/";
-    public static final String URL_GETCARLOGOSITE = API_URL + "cars/logo/";
-    public static final String URL_ADDCAR = API_URL + "cars";
-
-    // Car makes/models endpoints
-    public static final String URL_GETMAKE_LIST = API_URL + "makes";
+    // --- Car Makes (Public) ---
+    public static final String URL_GETMAKE_LIST = API_URL + "cars/makes";
+    public static final String URL_CAR_MAKES = API_URL + "cars/makes";
     public static final String URL_GET_MAKE = API_URL + "cars/makes";
-    public static final String URL_GETMODEL_LIST_BYMAKE = API_URL + "makes/";
-    public static final String URL_GETTYPE_LIST_BYMODEL = API_URL + "models/";
+    public static final String URL_CARS_BY_MAKE = API_URL + "cars/make/"; // Append make name
+    public static final String URL_GETMODEL_LIST_BYMAKE = API_URL + "makes/"; // Append make name + /models
+
+    // --- Colors (Public) ---
     public static final String URL_GETCOLOR_LIST = API_URL + "colors";
 
-    // New constants
-    public static final String URL = "http://192.168.100.17/caratan/";
-    public static final String HOME = URL + "api";
+    // --- Legacy URLs (for backward compatibility) ---
+    public static final String URL_GETCARLOGOSITE = API_URL + "cars/logo/";
+    public static final String URL_GETTYPE_LIST_BYMODEL = API_URL + "models/";
 }

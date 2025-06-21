@@ -5,10 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/api/makes")
+@RequestMapping("/makes")
 @CrossOrigin(origins = "*")
 public class MakesController {
     
@@ -16,9 +18,25 @@ public class MakesController {
     private CarService carService;
     
     @GetMapping
-    public ResponseEntity<List<String>> getAllMakes() {
+    public ResponseEntity<Map<String, Object>> getAllMakes() {
         List<String> makes = carService.getPopularMakes();
-        return ResponseEntity.ok(makes);
+        
+        Map<String, Object> response = new HashMap<>();
+        response.put("error", false);
+        response.put("carmake", makes);
+        
+        return ResponseEntity.ok(response);
+    }
+    
+    @PostMapping
+    public ResponseEntity<Map<String, Object>> getAllMakesPost() {
+        List<String> makes = carService.getPopularMakes();
+        
+        Map<String, Object> response = new HashMap<>();
+        response.put("error", false);
+        response.put("carmake", makes);
+        
+        return ResponseEntity.ok(response);
     }
     
     @GetMapping("/{makeName}/models")

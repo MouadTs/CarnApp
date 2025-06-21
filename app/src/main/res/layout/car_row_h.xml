@@ -171,6 +171,7 @@
                 android:layout_marginTop="16dp"
                 android:text="1234567890"
                 android:textSize="8sp"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@+id/cardView"
                 app:layout_constraintTop_toTopOf="@+id/cardView" />
 

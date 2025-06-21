@@ -75,7 +75,7 @@ public class CarMakeListActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         StringRequest request = new StringRequest(
-                Request.Method.POST,
+                Request.Method.GET,
                 Constant.URL_GETMAKE_LIST,
                 response -> {
 
@@ -107,7 +107,6 @@ public class CarMakeListActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
         );
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(request);
+        RequestHandler.getInstance(this).addToRequestQueue(request);
     }
 }

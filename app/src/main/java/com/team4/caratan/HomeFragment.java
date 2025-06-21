@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment {
 
         txtGreet = (TextView) requireView().findViewById(R.id.txtGreet);
         progressBar = (ProgressBar) requireView().findViewById(R.id.home_progressBar);
-        txtGreet.setText("Halo, " + nama + "!");
+        txtGreet.setText("Hello, " + nama + "!");
 
         btnJual = (Button) requireView().findViewById(R.id.home_btnJual);
         btnJual.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +103,9 @@ public class HomeFragment extends Fragment {
             public void onItemClick(AdapterView<?> parenView, View childView, int position, long id) {
                 TextView txtUsedCarID = childView.findViewById(R.id.txtUsedCarID);
                 String UsedCarID = txtUsedCarID.getText().toString().trim();
+                
+                // Debug logging
+                Toast.makeText(requireContext(), "Clicked car ID: " + UsedCarID, Toast.LENGTH_SHORT).show();
 
                 Intent i = new Intent(requireActivity(), carInformationActivity.class);
                 i.putExtra("usedcar_id", UsedCarID);
@@ -115,8 +118,8 @@ public class HomeFragment extends Fragment {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        StringRequest request = new StringRequest(
-                Request.Method.POST,
+        JwtAuthenticatedRequest request = new JwtAuthenticatedRequest(
+                Request.Method.GET,
                 Constant.URL_GETCAR_LIST,
                 response -> {
 
@@ -124,6 +127,10 @@ public class HomeFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(response);
                         JSONArray jsonArray = obj.getJSONArray("usedcar");
+                        
+                        // Debug logging
+                        Toast.makeText(getContext(), "Found " + jsonArray.length() + " cars", Toast.LENGTH_SHORT).show();
+                        
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
 
@@ -139,6 +146,9 @@ public class HomeFragment extends Fragment {
                             String car_mainPhoto = object.getString("car_mainPhoto");
                             String make_logo = object.getString("make_logo");
 
+                            // Debug logging
+                            Toast.makeText(getContext(), "Car ID: " + usedcar_id + " - " + make_name + " " + model_name, Toast.LENGTH_SHORT).show();
+
                             carSmallCard car = new carSmallCard(usedcar_id, make_name, model_name, model_type, year,
                                                             mileage, model_transmission, location, price, car_mainPhoto, make_logo);
 
@@ -148,16 +158,17 @@ public class HomeFragment extends Fragment {
                     }
                     catch (JSONException e) {
                         e.printStackTrace();
+                        Toast.makeText(getContext(), "Error parsing cars: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                     progressBar.setVisibility(View.GONE);
                 },
                 error -> {
                     progressBar.setVisibility(View.GONE);
-                    Toast.makeText(getContext(), "Please check your internet connection!",
+                    Toast.makeText(getContext(), "Error loading cars: " + error.getMessage(),
                             Toast.LENGTH_LONG).show();
-                }
+                },
+                requireContext()
         );
-        RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
-        requestQueue.add(request);
+        RequestHandler.getInstance(requireContext()).addToRequestQueue(request);
     }
 }

@@ -1,5 +1,7 @@
 package com.caratan.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -13,18 +15,22 @@ public class Car {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty("usedCar_id")
     private Long id;
     
     @NotBlank
     @Column(name = "make")
+    @JsonProperty("make_name")
     private String make;
     
     @NotBlank
     @Column(name = "model")
+    @JsonProperty("model_name")
     private String model;
     
     @NotBlank
     @Column(name = "type")
+    @JsonProperty("model_type")
     private String type;
     
     @NotNull
@@ -42,11 +48,25 @@ public class Car {
     
     @NotBlank
     @Column(name = "transmission")
+    @JsonProperty("model_transmission")
     private String transmission;
     
     @NotBlank
     @Column(name = "fuel_type")
+    @JsonProperty("model_fuel")
     private String fuelType;
+    
+    @Column(name = "engine_capacity")
+    @JsonProperty("model_cc")
+    private String engineCapacity = "1500"; // Default engine capacity
+    
+    @Column(name = "cylinder")
+    @JsonProperty("model_cylinder")
+    private String cylinder = "4"; // Default cylinder count
+    
+    @Column(name = "seats")
+    @JsonProperty("model_seat")
+    private String seats = "5"; // Default seat count
     
     @NotNull
     @Positive
@@ -57,13 +77,22 @@ public class Car {
     private String description;
     
     @Column(name = "photos")
+    @JsonProperty("car_mainPhoto")
     private String photos; // JSON array of photo URLs
     
     @Column(name = "views")
     private Integer views = 0;
     
+    @Column(name = "location")
+    private String location = "Jakarta"; // Default location
+    
+    @Transient
+    @JsonProperty("make_logo")
+    private String makeLogo = "/images/default_logo.png"; // Default logo
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id")
+    @JsonIgnore
     private User seller;
     
     @Column(name = "created_at")
@@ -166,6 +195,30 @@ public class Car {
         this.fuelType = fuelType;
     }
     
+    public String getEngineCapacity() {
+        return engineCapacity;
+    }
+    
+    public void setEngineCapacity(String engineCapacity) {
+        this.engineCapacity = engineCapacity;
+    }
+    
+    public String getCylinder() {
+        return cylinder;
+    }
+    
+    public void setCylinder(String cylinder) {
+        this.cylinder = cylinder;
+    }
+    
+    public String getSeats() {
+        return seats;
+    }
+    
+    public void setSeats(String seats) {
+        this.seats = seats;
+    }
+    
     public BigDecimal getPrice() {
         return price;
     }
@@ -196,6 +249,22 @@ public class Car {
     
     public void setViews(Integer views) {
         this.views = views;
+    }
+    
+    public String getLocation() {
+        return location;
+    }
+    
+    public void setLocation(String location) {
+        this.location = location;
+    }
+    
+    public String getMakeLogo() {
+        return makeLogo;
+    }
+    
+    public void setMakeLogo(String makeLogo) {
+        this.makeLogo = makeLogo;
     }
     
     public User getSeller() {

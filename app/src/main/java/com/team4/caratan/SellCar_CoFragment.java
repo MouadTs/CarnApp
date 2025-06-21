@@ -154,13 +154,15 @@ public class SellCar_CoFragment extends Fragment {
         byte[] bytes2 = byteArrayOutputStream2.toByteArray();
         base64Image_2 = Base64.encodeToString(bytes2, Base64.DEFAULT);
 
-        bp1.compress(Bitmap.CompressFormat.JPEG, 95, byteArrayOutputStream3);
+        bp3.compress(Bitmap.CompressFormat.JPEG, 95, byteArrayOutputStream3);
         byte[] bytes3 = byteArrayOutputStream3.toByteArray();
         base64Image_3 = Base64.encodeToString(bytes3, Base64.DEFAULT);
 
         //progressBar.setVisibility(View.VISIBLE);
 
-        StringRequest stringRequest = new StringRequest(
+        Toast.makeText(requireContext(), "Uploading car data...", Toast.LENGTH_SHORT).show();
+
+        JwtAuthenticatedRequest stringRequest = new JwtAuthenticatedRequest(
                 Request.Method.POST,
                 Constant.URL_ADDCAR,
                 response -> {
@@ -187,15 +189,18 @@ public class SellCar_CoFragment extends Fragment {
 
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Toast.makeText(requireContext(), "Error parsing response: " + e.getMessage(),
+                                Toast.LENGTH_LONG).show();
                     }
                 },
                 error -> {
                     //progressBar.setVisibility(View.GONE);
 
-                    Toast.makeText(requireContext(), "Please check your internet connection!",
+                    Toast.makeText(requireContext(), "Upload failed: " + error.getMessage(),
                             Toast.LENGTH_LONG).show();
-                }
-        ){
+                },
+                requireContext()
+        ) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();

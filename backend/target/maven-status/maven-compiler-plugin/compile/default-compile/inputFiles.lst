@@ -4,6 +4,8 @@ C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\
 C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\repository\CarRepository.java
 C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\CaratanApplication.java
 C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\config\DataInitializer.java
+C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\security\JwtAuthenticationFilter.java
+C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\security\CustomUserDetailsService.java
 C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\dto\LoginRequest.java
 C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\security\JwtUtil.java
 C:\Users\PREDATOR HELIOS 300\Desktop\CaRatan-Car-Dealership-Application-Project\backend\src\main\java\com\caratan\repository\UserRepository.java

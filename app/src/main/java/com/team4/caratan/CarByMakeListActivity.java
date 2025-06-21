@@ -112,7 +112,7 @@ public class CarByMakeListActivity extends AppCompatActivity {
 
     private void getMakeLogo() {
         StringRequest request = new StringRequest(
-                Request.Method.POST,
+                Request.Method.GET,
                 Constant.URL_CAR_MAKES,
                 response -> {
                     try {
@@ -131,14 +131,7 @@ public class CarByMakeListActivity extends AppCompatActivity {
                     Toast.makeText(this, "Please check your internet connection!",
                             Toast.LENGTH_LONG).show();
                 }
-        ){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("make_name", make_name);
-                return params;
-            }
-        };
+        );
         RequestHandler.getInstance(this).addToRequestQueue(request);
     }
 
@@ -146,9 +139,9 @@ public class CarByMakeListActivity extends AppCompatActivity {
 
         //progressBar.setVisibility(View.VISIBLE);
 
-        StringRequest request = new StringRequest(
-                Request.Method.POST,
-                Constant.URL_CARS_BY_MAKE,
+        JwtAuthenticatedRequest request = new JwtAuthenticatedRequest(
+                Request.Method.GET,
+                Constant.URL_CARS_BY_MAKE + make_name,
                 response -> {
 
                     carSmallCardArrayList.clear();
@@ -186,15 +179,9 @@ public class CarByMakeListActivity extends AppCompatActivity {
                     Toast.makeText(this, "Please check your internet connection!",
                             Toast.LENGTH_LONG).show();
                     //progressBar.setVisibility(View.GONE);
-                }
-        ){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("make_name", make_name);
-                return params;
-            }
-        };
+                },
+                this
+        );
         RequestHandler.getInstance(this).addToRequestQueue(request);
     }
 }

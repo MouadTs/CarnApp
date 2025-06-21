@@ -98,6 +98,15 @@ public class carInformationActivity extends AppCompatActivity implements OnMapRe
 
         Intent i = getIntent();
         usedCar_id = i.getStringExtra("usedcar_id");
+        
+        // Debug logging
+        if (usedCar_id == null || usedCar_id.isEmpty()) {
+            Toast.makeText(this, "Error: Car ID not found", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+        
+        Toast.makeText(this, "Car ID: " + usedCar_id, Toast.LENGTH_SHORT).show();
 
         sliderImg = new ArrayList<>();
         viewPager = (ViewPager) findViewById(R.id.imagePager);
@@ -114,8 +123,9 @@ public class carInformationActivity extends AppCompatActivity implements OnMapRe
         txtCarSeat = findViewById(R.id.info_txtSeat);
         txtCarDesc = findViewById(R.id.info_txtDesc);
         txtCarPrice = findViewById(R.id.info_txtPrice);
+        txtViewCount = findViewById(R.id.tvViewed);
+        txtPostDate = findViewById(R.id.tvPostedOn);
         txtCarPenjual = findViewById(R.id.info_txtNamaPenjual);
-
 
         imgCarLogo = findViewById(R.id.info_imgLogo);
         imgCarSeller = findViewById(R.id.info_imgProfil);
@@ -164,7 +174,11 @@ public class carInformationActivity extends AppCompatActivity implements OnMapRe
         progressBar.setVisibility(View.VISIBLE);
         white_bg.setVisibility(View.VISIBLE);
         final String id_usedcar = usedCar_id;
-        StringRequest request = new StringRequest(
+        
+        // Debug logging
+        Toast.makeText(this, "Fetching images for car ID: " + id_usedcar, Toast.LENGTH_SHORT).show();
+        
+        JwtAuthenticatedRequest request = new JwtAuthenticatedRequest(
                 Request.Method.POST,
                 Constant.URL_GETCARPHOTOS,
                 response -> {
@@ -173,40 +187,63 @@ public class carInformationActivity extends AppCompatActivity implements OnMapRe
                         JSONObject obj = new JSONObject(response);
                         JSONArray jsonArray = obj.getJSONArray("usedcarphoto");
 
-                        JSONObject main = jsonArray.getJSONObject(0);
-                        SliderUtils slide1 = new SliderUtils();
+                        // Debug logging
+                        Toast.makeText(carInformationActivity.this, "Found " + jsonArray.length() + " photos", Toast.LENGTH_SHORT).show();
 
-                        slide1.setSliderImageURL(Constant.IMAGE_URL + main.getString("car_mainPhoto"));
+                        if (jsonArray.length() > 0) {
+                            JSONObject main = jsonArray.getJSONObject(0);
+                            SliderUtils slide1 = new SliderUtils();
 
-                        sliderImg.add(slide1);
+                            slide1.setSliderImageURL(Constant.IMAGE_URL + main.getString("car_mainPhoto"));
 
-                        for(int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject object = jsonArray.getJSONObject(i);
-                            SliderUtils sliderUtils = new SliderUtils();
+                            sliderImg.add(slide1);
 
-                            sliderUtils.setSliderImageURL(Constant.IMAGE_URL + object.getString("photos"));
+                            for(int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                SliderUtils sliderUtils = new SliderUtils();
 
-                            sliderImg.add(sliderUtils);
+                                sliderUtils.setSliderImageURL(Constant.IMAGE_URL + object.getString("photos"));
+
+                                sliderImg.add(sliderUtils);
+                            }
+                            viewPagerAdapter = new ViewPagerAdapter(sliderImg, carInformationActivity.this);
+                            viewPager.setAdapter(viewPagerAdapter);
+                            
+                            Toast.makeText(carInformationActivity.this, "Photos loaded successfully", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(carInformationActivity.this, "No photos found for this car", Toast.LENGTH_SHORT).show();
                         }
-                        viewPagerAdapter = new ViewPagerAdapter(sliderImg, carInformationActivity.this);
-                        viewPager.setAdapter(viewPagerAdapter);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Toast.makeText(carInformationActivity.this, "Error parsing photos: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(carInformationActivity.this, "Unexpected error loading photos: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                     progressBar.setVisibility(View.GONE);
                     white_bg.setVisibility(View.GONE);
                 },
                 error -> {
                     progressBar.setVisibility(View.GONE);
-                    Toast.makeText(carInformationActivity.this, "Please check your internet connection!",
-                            Toast.LENGTH_LONG).show();
-                }
+                    white_bg.setVisibility(View.GONE);
+                    String errorMessage = "An unknown error occurred while fetching images.";
+                    if (error != null) {
+                        errorMessage = "Error fetching photos: " + error.toString();
+                         if (error.networkResponse != null) {
+                            errorMessage += " Status Code: " + error.networkResponse.statusCode;
+                        }
+                    }
+                    Toast.makeText(carInformationActivity.this, errorMessage, Toast.LENGTH_LONG).show();
+                },
+                this
         ) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("usedCar_id", id_usedcar);
+                // Debug logging
+                Toast.makeText(carInformationActivity.this, "Sending usedCar_id: " + id_usedcar, Toast.LENGTH_SHORT).show();
                 return params;
             }
         };
@@ -219,13 +256,26 @@ public class carInformationActivity extends AppCompatActivity implements OnMapRe
         white_bg.setVisibility(View.VISIBLE);
         final String id_usedcar = usedCar_id;
 
-        StringRequest carRequest = new StringRequest(
+        if (id_usedcar == null || id_usedcar.isEmpty()) {
+            Toast.makeText(this, "Car ID is missing. Cannot fetch information.", Toast.LENGTH_LONG).show();
+            progressBar.setVisibility(View.GONE);
+            white_bg.setVisibility(View.GONE);
+            return;
+        }
+        
+        // Debug logging
+        Toast.makeText(this, "Getting info for car ID: " + id_usedcar, Toast.LENGTH_SHORT).show();
+
+        JwtAuthenticatedRequest carRequest = new JwtAuthenticatedRequest(
                 Request.Method.POST,
                 Constant.URL_GETCARINFO,
                 response -> {
 
                     try {
                         JSONObject main = new JSONObject(response);
+
+                        // Debug logging
+                        Toast.makeText(carInformationActivity.this, "Successfully received car data", Toast.LENGTH_SHORT).show();
 
                         String usedCar_id = main.getString("usedCar_id");
                         String category = main.getString("category_name");
@@ -252,6 +302,9 @@ public class carInformationActivity extends AppCompatActivity implements OnMapRe
                         String make_logo = main.getString("make_logo");
                         String profile_pic = main.getString("profile_pic");
 
+                        // Debug logging for key fields
+                        Toast.makeText(carInformationActivity.this, "Make: " + make + ", Model: " + model, Toast.LENGTH_SHORT).show();
+
                         imageLoader = CustomVolleyRequest.getInstance(this).getImageLoader();
 
                         String carLogo = Constant.IMAGE_URL + make_logo;
@@ -272,38 +325,58 @@ public class carInformationActivity extends AppCompatActivity implements OnMapRe
                         String decim_rp = decim.format(rp);
                         String decim_vw = decim.format(vw);
 
-                        txtCarMake.setText(make);
-                        txtCarModel .setText(model + " " + type + " " + year);
-                        txtCarYear.setText(year);
-                        txtCarMileage.setText(decim_km + " KM");
-                        txtCarFuel.setText(fuel);
-                        txtCarTrans.setText(transmission);
-                        txtCarCC.setText(cc + " CC");
-                        txtCarCyl.setText(cylinder);
-                        txtCarColor.setText(color);
-                        txtCarSeat.setText(seat);
-                        txtCarDesc.setText(description);
-                        txtCarPrice.setText("Rp. " + decim_rp);
-                        txtViewCount.setText("Dilihat " + decim_vw + " kali");
-                        txtPostDate.setText("Diunggah pada " + post_date);
-                        txtCarPenjual.setText(fullname);
+                        // Update UI elements with null checks
+                        if (txtCarMake != null) txtCarMake.setText(make);
+                        if (txtCarModel != null) txtCarModel.setText(model + " " + type + " " + year);
+                        if (txtCarYear != null) txtCarYear.setText(year);
+                        if (txtCarMileage != null) txtCarMileage.setText(decim_km + " KM");
+                        if (txtCarFuel != null) txtCarFuel.setText(fuel);
+                        if (txtCarTrans != null) txtCarTrans.setText(transmission);
+                        if (txtCarCC != null) txtCarCC.setText(cc + " CC");
+                        if (txtCarCyl != null) txtCarCyl.setText(cylinder);
+                        if (txtCarColor != null) txtCarColor.setText(color);
+                        if (txtCarSeat != null) txtCarSeat.setText(seat);
+                        if (txtCarDesc != null) txtCarDesc.setText(description);
+                        if (txtCarPrice != null) txtCarPrice.setText("Rp. " + decim_rp);
+                        if (txtViewCount != null) txtViewCount.setText("Dilihat " + decim_vw + " kali");
+                        if (txtPostDate != null) txtPostDate.setText("Diunggah pada " + post_date);
+                        if (txtCarPenjual != null) txtCarPenjual.setText(fullname);
+
+                        Toast.makeText(carInformationActivity.this, "Car information updated successfully", Toast.LENGTH_SHORT).show();
 
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Toast.makeText(carInformationActivity.this, "Error parsing car info: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                        Toast.makeText(carInformationActivity.this, "Error parsing numbers: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(carInformationActivity.this, "Unexpected error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                     progressBar.setVisibility(View.GONE);
                     white_bg.setVisibility(View.GONE);
                 },
                 error -> {
                     progressBar.setVisibility(View.GONE);
-                    Toast.makeText(carInformationActivity.this, "Please check your internet connection!",
-                            Toast.LENGTH_LONG).show();
-                }
+                    white_bg.setVisibility(View.GONE);
+                    String errorMessage = "An unknown error occurred.";
+                    if (error != null) {
+                        errorMessage = "Error getting car info: " + error.toString();
+                        if (error.networkResponse != null) {
+                            errorMessage += " Status Code: " + error.networkResponse.statusCode;
+                        }
+                    }
+                    Toast.makeText(carInformationActivity.this, errorMessage, Toast.LENGTH_LONG).show();
+                },
+                this
         ) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("usedCar_id", id_usedcar);
+                // Debug logging
+                Toast.makeText(carInformationActivity.this, "Sending usedCar_id for info: " + id_usedcar, Toast.LENGTH_SHORT).show();
                 return params;
             }
         };
@@ -315,13 +388,22 @@ public class carInformationActivity extends AppCompatActivity implements OnMapRe
 
         final String id_usedcar = usedCar_id;
 
-        StringRequest carRequest = new StringRequest(
+        JwtAuthenticatedRequest carRequest = new JwtAuthenticatedRequest(
                 Request.Method.POST,
                 Constant.URL_UPDATEVIEWS,
                 response -> {
                 },
-                error -> Toast.makeText(carInformationActivity.this, "Please check your internet connection!",
-                        Toast.LENGTH_LONG).show()
+                error -> {
+                    String errorMessage = "An unknown error occurred while updating views.";
+                    if (error != null) {
+                        errorMessage = "Error updating views: " + error.toString();
+                        if (error.networkResponse != null) {
+                            errorMessage += " Status Code: " + error.networkResponse.statusCode;
+                        }
+                    }
+                    Toast.makeText(carInformationActivity.this, errorMessage, Toast.LENGTH_LONG).show();
+                },
+                this
         ) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
