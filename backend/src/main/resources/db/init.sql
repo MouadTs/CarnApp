@@ -71,9 +71,9 @@ INSERT INTO cars (make, model, type, year, color, mileage, transmission, fuel_ty
 ON DUPLICATE KEY UPDATE make = VALUES(make);
 
 -- Create indexes for better performance
-CREATE INDEX IF NOT EXISTS idx_cars_make_model ON cars(make, model);
-CREATE INDEX IF NOT EXISTS idx_cars_year_price ON cars(year, price);
-CREATE INDEX IF NOT EXISTS idx_cars_created_at ON cars(created_at);
+CREATE INDEX idx_cars_make_model ON cars(make, model);
+CREATE INDEX idx_cars_year_price ON cars(year, price);
+CREATE INDEX idx_cars_created_at ON cars(created_at);
 
 -- Show table structure
 DESCRIBE users;

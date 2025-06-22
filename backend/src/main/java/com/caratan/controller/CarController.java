@@ -1,7 +1,9 @@
 package com.caratan.controller;
 
 import com.caratan.entity.Car;
+import com.caratan.entity.User;
 import com.caratan.service.CarService;
+import com.caratan.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,9 @@ public class CarController {
     
     @Autowired
     private CarService carService;
+    
+    @Autowired
+    private UserRepository userRepository;
     
     @GetMapping
     public ResponseEntity<Map<String, Object>> getAllCars() {
@@ -47,12 +52,68 @@ public class CarController {
         return ResponseEntity.ok(makes);
     }
     
+    @GetMapping("/make/{makeName}/details")
+    public ResponseEntity<Map<String, String>> getMakeDetails(@PathVariable String makeName) {
+        // In a real app, you would fetch this from a database.
+        // Using a switch for placeholder data for now.
+        String logoUrl = "images/" + makeName.toLowerCase() + "_logo.png";
+        String siteUrl;
+        switch (makeName.toLowerCase()) {
+            case "toyota":
+                siteUrl = "https://www.toyota.com";
+                break;
+            case "honda":
+                siteUrl = "https://www.honda.com";
+                break;
+            case "bmw":
+                siteUrl = "https://www.bmw.com";
+                break;
+            default:
+                siteUrl = "https://www.google.com/search?q=" + makeName;
+                break;
+        }
+        
+        Map<String, String> details = new HashMap<>();
+        details.put("make_logo", logoUrl);
+        details.put("make_site", siteUrl);
+        
+        return ResponseEntity.ok(details);
+    }
+    
     @GetMapping("/make/{makeName}")
     public ResponseEntity<Map<String, Object>> getCarsByMake(@PathVariable String makeName) {
         List<Car> cars = carService.getCarsByMake(makeName);
-        
+        List<Map<String, Object>> carList = new ArrayList<>();
+
+        for (Car car : cars) {
+            Map<String, Object> carMap = new HashMap<>();
+            carMap.put("usedcar_id", car.getId() != null ? car.getId().toString() : "");
+            carMap.put("make_name", car.getMake() != null ? car.getMake() : "N/A");
+            carMap.put("model_name", car.getModel() != null ? car.getModel() : "N/A");
+            carMap.put("model_type", car.getType() != null ? car.getType() : "N/A");
+            carMap.put("year", car.getYear() != null ? car.getYear().toString() : "N/A");
+            carMap.put("mileage", car.getMileage() != null ? car.getMileage().toString() : "0");
+            carMap.put("model_transmission", car.getTransmission() != null ? car.getTransmission() : "N/A");
+            carMap.put("location", car.getLocation() != null ? car.getLocation() : "N/A");
+            carMap.put("price", car.getPrice() != null ? car.getPrice().toPlainString() : "0");
+            
+            String mainPhoto = "images/default_car.png";
+            if (car.getPhotos() != null && !car.getPhotos().isEmpty()) {
+                mainPhoto = car.getPhotos().split(",")[0];
+            }
+            carMap.put("car_mainPhoto", mainPhoto);
+            
+            String makeLogo = "images/default_logo.png";
+            if (car.getMake() != null) {
+                makeLogo = "images/" + car.getMake().toLowerCase() + "_logo.png";
+            }
+            carMap.put("make_logo", makeLogo);
+
+            carList.add(carMap);
+        }
+
         Map<String, Object> response = new HashMap<>();
-        response.put("usedcar", cars);
+        response.put("usedcar", carList);
         
         return ResponseEntity.ok(response);
     }
@@ -72,9 +133,8 @@ public class CarController {
     }
     
     @GetMapping("/search")
-    public ResponseEntity<List<Car>> searchCars(@RequestParam String q) {
-        List<Car> cars = carService.searchCars(q);
-        return ResponseEntity.ok(cars);
+    public ResponseEntity<List<Car>> searchCars(@RequestParam("q") String query) {
+        return ResponseEntity.ok(carService.searchCars(query));
     }
     
     @GetMapping("/price-range")
@@ -103,7 +163,7 @@ public class CarController {
     public ResponseEntity<Map<String, Object>> addCarFromForm(@RequestParam Map<String, String> params) {
         try {
             // Extract parameters from form data
-            String userId = params.get("user_id");
+            String userIdStr = params.get("user_id");
             String makeName = params.get("make_name");
             String modelName = params.get("model_name");
             String modelType = params.get("model_type");
@@ -117,7 +177,7 @@ public class CarController {
             String carPhoto3 = params.get("carPhoto_3");
             
             // Validate required fields
-            if (makeName == null || modelName == null || modelYear == null || 
+            if (userIdStr == null || makeName == null || modelName == null || modelYear == null || 
                 modelMileage == null || modelPrice == null) {
                 Map<String, Object> response = new HashMap<>();
                 response.put("error", true);
@@ -125,8 +185,20 @@ public class CarController {
                 return ResponseEntity.badRequest().body(response);
             }
             
+            // Fetch the seller
+            Long userId = Long.parseLong(userIdStr);
+            Optional<User> sellerOptional = userRepository.findById(userId);
+            if (sellerOptional.isEmpty()) {
+                Map<String, Object> response = new HashMap<>();
+                response.put("error", true);
+                response.put("message", "Seller with ID " + userId + " not found.");
+                return ResponseEntity.badRequest().body(response);
+            }
+            User seller = sellerOptional.get();
+            
             // Create a new Car object
             Car car = new Car();
+            car.setSeller(seller);
             car.setMake(makeName);
             car.setModel(modelName);
             car.setType(modelType != null ? modelType : "Sedan");
@@ -240,22 +312,20 @@ public class CarController {
     @PostMapping("/info")
     public ResponseEntity<Map<String, Object>> getCarInfo(@RequestParam String usedCar_id) {
         try {
-            System.out.println("Received request for car info with usedCar_id: " + usedCar_id);
-            
-            if (usedCar_id == null) {
-                System.out.println("usedCar_id is null");
-                return ResponseEntity.badRequest().build();
+            if (usedCar_id == null || usedCar_id.isEmpty()) {
+                return ResponseEntity.badRequest().body(Map.of("error", "usedCar_id is required"));
             }
             
             Long carId = Long.parseLong(usedCar_id);
-            Optional<Car> carOpt = carService.getCarById(carId);
-            
-            if (carOpt.isPresent()) {
-                Car car = carOpt.get();
+            Optional<Car> carOptional = carService.getCarById(carId);
+
+            if (carOptional.isPresent()) {
+                Car car = carOptional.get();
+                User seller = car.getSeller();
+
                 Map<String, Object> response = new HashMap<>();
-                
-                response.put("usedCar_id", car.getId());
-                response.put("category_name", "Used Car");
+                response.put("usedCar_id", car.getId().toString());
+                response.put("category_name", "Sedan"); // Assuming a default, adjust if needed
                 response.put("make_name", car.getMake());
                 response.put("model_name", car.getModel());
                 response.put("model_type", car.getType());
@@ -264,45 +334,40 @@ public class CarController {
                 response.put("model_cylinder", car.getCylinder());
                 response.put("model_fuel", car.getFuelType());
                 response.put("model_seat", car.getSeats());
-                response.put("car_status", "Available");
+                response.put("car_status", "Available"); // Assuming a default
                 response.put("color", car.getColor());
                 response.put("year", car.getYear().toString());
                 response.put("mileage", car.getMileage().toString());
                 response.put("location", car.getLocation());
                 response.put("price", car.getPrice().toString());
-                response.put("post_date", car.getCreatedAt() != null ? car.getCreatedAt().toString() : "2024-01-01");
+                response.put("post_date", car.getCreatedAt().toString());
                 response.put("views", car.getViews().toString());
-                response.put("description", car.getDescription() != null ? car.getDescription() : "No description available");
+                response.put("description", car.getDescription());
                 
-                // Handle seller information
-                if (car.getSeller() != null) {
-                    response.put("user_id", car.getSeller().getId());
-                    response.put("fullname", car.getSeller().getFullName());
-                    response.put("phone", car.getSeller().getPhone() != null ? car.getSeller().getPhone() : "08123456789");
-                    response.put("profile_pic", car.getSeller().getProfilePic() != null ? car.getSeller().getProfilePic() : "/images/defaultprofileicon.png");
+                if (seller != null) {
+                    response.put("user_id", seller.getId().toString());
+                    response.put("fullname", seller.getFullName());
+                    response.put("phone", seller.getPhone());
+                    response.put("profile_pic", seller.getProfilePic());
                 } else {
-                    response.put("user_id", "1");
-                    response.put("fullname", "Seller");
-                    response.put("phone", "08123456789");
-                    response.put("profile_pic", "/images/defaultprofileicon.png");
+                    response.put("user_id", "");
+                    response.put("fullname", "N/A");
+                    response.put("phone", "");
+                    response.put("profile_pic", "");
                 }
-                
-                // Handle make logo
-                String makeLogo = car.getMakeLogo();
-                if (makeLogo == null || makeLogo.isEmpty()) {
-                    makeLogo = "/images/" + car.getMake().toLowerCase() + "_logo.png";
-                }
-                response.put("make_logo", makeLogo);
-                
-                System.out.println("Returning car info for car ID: " + carId);
+
+                // Assuming a default, adjust if needed
+                response.put("make_logo", "images/" + car.getMake().toLowerCase() + "_logo.png");
+
                 return ResponseEntity.ok(response);
             } else {
-                System.out.println("Car not found with ID: " + carId);
                 return ResponseEntity.notFound().build();
             }
         } catch (NumberFormatException e) {
-            System.out.println("Invalid car ID format: " + usedCar_id);
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(Map.of("error", "Invalid usedCar_id format"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(Map.of("error", "An internal error occurred"));
         }
     }
     

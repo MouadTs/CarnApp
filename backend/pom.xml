@@ -54,6 +54,13 @@
             <version>8.0.33</version>
         </dependency>
         
+        <!-- H2 Database (for testing) -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        
         <!-- JEE/Jakarta EE -->
         <dependency>
             <groupId>jakarta.platform</groupId>

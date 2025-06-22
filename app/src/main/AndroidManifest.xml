@@ -50,6 +50,9 @@
             android:name=".CarMakeWebViewActivity"
             android:exported="false" />
         <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".CarByMakeListActivity"
             android:exported="false" />
         <activity

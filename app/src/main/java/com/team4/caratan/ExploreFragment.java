@@ -17,7 +17,7 @@ import android.widget.Button;
 
 public class ExploreFragment extends Fragment {
 
-    private Button btnToyota, btnHonda, btnBMW, btnMoreMake;
+    private Button btnToyota, btnHonda, btnBMW, btnMoreMake, btnSearch;
 
     public ExploreFragment() {
 
@@ -54,6 +54,11 @@ public class ExploreFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        btnSearch = requireActivity().findViewById(R.id.button);
+        btnSearch.setOnClickListener(v -> {
+            startActivity(new Intent(requireActivity(), SearchActivity.class));
+        });
 
         btnToyota = requireActivity().findViewById(R.id.explore_btnToyota);
         btnToyota.setOnClickListener(view1 -> {

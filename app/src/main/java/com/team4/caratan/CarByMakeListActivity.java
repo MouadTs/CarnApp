@@ -73,7 +73,7 @@ public class CarByMakeListActivity extends AppCompatActivity {
         txtMainMakeName.setText(make_name);
 
         txtMakeDesc = findViewById(R.id.carbymake_makeDesc);
-        txtMakeDesc.setText("Here is a collection of used cars from " + make_name);
+        txtMakeDesc.setText(getString(R.string.car_brand_collection, make_name));
 
         getMakeLogo();
 
@@ -113,7 +113,7 @@ public class CarByMakeListActivity extends AppCompatActivity {
     private void getMakeLogo() {
         StringRequest request = new StringRequest(
                 Request.Method.GET,
-                Constant.URL_CAR_MAKES,
+                Constant.URL_GET_MAKE_DETAILS + make_name + "/details",
                 response -> {
                     try {
                         JSONObject obj = new JSONObject(response);

@@ -115,14 +115,13 @@ public class AuthController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<AuthResponse> updateUser(@RequestBody Map<String, String> request) {
+    public ResponseEntity<AuthResponse> updateUser(
+            @RequestParam("user_id") String userId,
+            @RequestParam("fullname") String fullname,
+            @RequestParam("phone") String phone,
+            @RequestParam("email") String email,
+            @RequestParam("profile_pic") String profilePic) {
         try {
-            String userId = request.get("user_id");
-            String fullname = request.get("fullname");
-            String phone = request.get("phone");
-            String email = request.get("email");
-            String profilePic = request.get("profile_pic");
-            
             // Find user by ID
             User user = userRepository.findById(Long.parseLong(userId))
                     .orElse(null);
@@ -132,11 +131,29 @@ public class AuthController {
                         .body(AuthResponse.error("User not found"));
             }
             
+            // Handle profile picture upload
+            String profilePicFilename = null;
+            if (profilePic != null && !profilePic.isEmpty()) {
+                try {
+                    // Generate unique filename
+                    String timestamp = String.valueOf(System.currentTimeMillis());
+                    profilePicFilename = "profile_" + userId + "_" + timestamp + ".jpg";
+                    
+                    // Save base64 image to file
+                    saveBase64Image(profilePic, profilePicFilename);
+                } catch (Exception e) {
+                    return ResponseEntity.badRequest()
+                            .body(AuthResponse.error("Failed to save profile picture: " + e.getMessage()));
+                }
+            }
+            
             // Update user fields
             user.setFullName(fullname);
             user.setPhone(phone);
             user.setEmail(email);
-            user.setProfilePic(profilePic);
+            if (profilePicFilename != null) {
+                user.setProfilePic(profilePicFilename);
+            }
             
             User updatedUser = userRepository.save(user);
             
@@ -155,6 +172,36 @@ public class AuthController {
         } catch (Exception e) {
             return ResponseEntity.badRequest()
                     .body(AuthResponse.error("Update failed: " + e.getMessage()));
+        }
+    }
+    
+    private void saveBase64Image(String base64Image, String filename) {
+        try {
+            // Remove data URL prefix if present
+            String base64Data = base64Image;
+            if (base64Image.contains(",")) {
+                base64Data = base64Image.substring(base64Image.indexOf(",") + 1);
+            }
+            
+            // Decode base64 to bytes
+            byte[] imageBytes = java.util.Base64.getDecoder().decode(base64Data);
+            
+            // Create uploads directory if it doesn't exist
+            String uploadDir = "uploads/";
+            java.io.File dir = new java.io.File(uploadDir);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            
+            // Save the file
+            java.io.File file = new java.io.File(uploadDir + filename);
+            java.io.FileOutputStream fos = new java.io.FileOutputStream(file);
+            fos.write(imageBytes);
+            fos.close();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to save image: " + e.getMessage());
         }
     }
 

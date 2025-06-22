@@ -17,14 +17,14 @@
     <string name="dont_have_account">Don\'t have an account?</string>
     <string name="already_have_account">Already have an account?</string>
     <string name="login_description">Please enter your registered email and password</string>
-    <string name="register_description">Please enter your name, email and password to register</string>
+    <string name="register_description">Enter your name, email, and password to register</string>
     
     <!-- Validation Messages -->
     <string name="error_username_required">Username is required!</string>
     <string name="error_email_required">Email is required!</string>
     <string name="error_email_invalid">Invalid email format!</string>
     <string name="error_password_required">Password is required!</string>
-    <string name="error_password_too_short">Password too short, minimum 6 characters!</string>
+    <string name="error_password_too_short">Password is too short, minimum 6 characters!</string>
     <string name="error_internet_connection">Please check your internet connection!</string>
     <string name="error_login_success">Successfully logged in!</string>
     <string name="error_register_success">Successfully registered!</string>
@@ -37,8 +37,8 @@
     <string name="car_price_required">Car price is required!</string>
     <string name="car_price_too_low">Cannot sell car below $2,000!</string>
     <string name="car_description_required">Car description is required!</string>
-    <string name="car_make_list">Car Make List</string>
-    <string name="car_brand_collection">Here is a collection of used cars from BRAND for sale</string>
+    <string name="car_make_list">Car Brands</string>
+    <string name="car_brand_collection">Here is a collection of used cars from %s for sale</string>
     
     <!-- Navigation -->
     <string name="home">Home</string>
@@ -49,15 +49,15 @@
     <!-- Profile -->
     <string name="edit_profile">Edit Profile</string>
     <string name="logout">Logout</string>
-    <string name="logout_confirmation">Are you sure you want to end your session on this application?</string>
+    <string name="logout_confirmation">Are you sure you want to end your session?</string>
     <string name="no">NO</string>
     <string name="yes">YES</string>
     
     <!-- Explore -->
-    <string name="explore_description">You can search for your dream used car by typing directly in the search box or applying filters for the car you are looking for</string>
+    <string name="explore_description">You can search for your dream used car by typing in the search box or applying filters.</string>
     
     <!-- Sell Car -->
-    <string name="sell_car_info_title">Check your car information again</string>
+    <string name="sell_car_info_title">Please review your car information</string>
     <string name="response_success">Response received successfully</string>
     <string name="not_available">Not available</string>
     

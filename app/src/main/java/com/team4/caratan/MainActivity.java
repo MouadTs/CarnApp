@@ -88,7 +88,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openSell() {
-        // Add implementation when ready
+        Intent intent = new Intent(this, SellCarActivity.class);
+        startActivity(intent);
     }
 
     private void openProfile() {

@@ -76,12 +76,15 @@
             <Button
                 android:id="@+id/carbymake_btnSite"
                 android:layout_width="wrap_content"
-                android:layout_height="38dp"
-                android:layout_marginStart="4dp"
-                android:backgroundTint="#EDEDED"
-                android:text="Situs Resmi"
-                android:textColor="#272727"
-                android:textSize="10sp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/roundcorner"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:text="Official Site"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textSize="12sp"
                 app:cornerRadius="24dp" />
         </LinearLayout>
     </LinearLayout>

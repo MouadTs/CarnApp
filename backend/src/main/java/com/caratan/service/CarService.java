@@ -1,6 +1,7 @@
 package com.caratan.service;
 
 import com.caratan.entity.Car;
+import com.caratan.entity.User;
 import com.caratan.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -52,7 +53,10 @@ public class CarService {
     }
     
     public List<Car> searchCars(String searchTerm) {
-        String sql = "SELECT * FROM cars WHERE make LIKE ? OR model LIKE ? OR description LIKE ?";
+        String sql = "SELECT c.*, u.full_name, u.phone, u.profile_pic " +
+                     "FROM cars c " +
+                     "LEFT JOIN users u ON c.seller_id = u.id " +
+                     "WHERE c.make LIKE ? OR c.model LIKE ? OR c.description LIKE ?";
         String searchPattern = "%" + searchTerm + "%";
         
         return jdbcTemplate.query(sql, new CarRowMapper(), searchPattern, searchPattern, searchPattern);
@@ -89,23 +93,27 @@ public class CarService {
             car.setMileage(rs.getInt("mileage"));
             car.setTransmission(rs.getString("transmission"));
             car.setFuelType(rs.getString("fuel_type"));
+            car.setEngineCapacity(rs.getString("engine_capacity"));
+            car.setCylinder(rs.getString("cylinder"));
+            car.setSeats(rs.getString("seats"));
             car.setPrice(rs.getBigDecimal("price"));
             car.setDescription(rs.getString("description"));
             car.setPhotos(rs.getString("photos"));
             car.setViews(rs.getInt("views"));
-            
-            // Set location if available, otherwise use default
-            String location = rs.getString("location");
-            car.setLocation(location != null ? location : "Jakarta");
-            
-            // Set make logo based on make name
-            String make = rs.getString("make");
-            if (make != null) {
-                car.setMakeLogo("/images/" + make.toLowerCase() + "_logo.png");
-            }
-            
+            car.setLocation(rs.getString("location"));
             car.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
             car.setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime());
+            
+            // Create and set the seller (User) object from the joined data
+            if (rs.getObject("seller_id") != null) {
+                User seller = new User();
+                seller.setId(rs.getLong("seller_id"));
+                seller.setFullName(rs.getString("full_name"));
+                seller.setPhone(rs.getString("phone"));
+                seller.setProfilePic(rs.getString("profile_pic"));
+                car.setSeller(seller);
+            }
+            
             return car;
         }
     }

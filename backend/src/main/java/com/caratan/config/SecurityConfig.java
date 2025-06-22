@@ -39,6 +39,7 @@ public class SecurityConfig {
                 .requestMatchers("/auth/**").permitAll()  // Allow auth endpoints
                 .requestMatchers("/cars/makes").permitAll() // Allow public car makes
                 .requestMatchers("/cars/make/**").permitAll() // Allow public car makes with parameters
+                .requestMatchers("/cars/search").permitAll() // Allow public search
                 .requestMatchers("/colors").permitAll() // Allow public colors
                 .requestMatchers("/cars/info").permitAll()  // Make car info public
                 .requestMatchers("/cars/photos").permitAll() // Make car photos public
@@ -47,7 +48,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()  // Require authentication for other endpoints
             )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-            .headers(headers -> headers.frameOptions().disable()); // For H2 console
+            .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable())); // For H2 console
         
         return http.build();
     }

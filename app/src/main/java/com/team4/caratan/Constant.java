@@ -22,6 +22,7 @@ public class Constant {
     // --- Car Makes (Public) ---
     public static final String URL_GETMAKE_LIST = API_URL + "cars/makes";
     public static final String URL_CAR_MAKES = API_URL + "cars/makes";
+    public static final String URL_GET_MAKE_DETAILS = API_URL + "cars/make/"; // Append {makeName}/details
     public static final String URL_GET_MAKE = API_URL + "cars/makes";
     public static final String URL_CARS_BY_MAKE = API_URL + "cars/make/"; // Append make name
     public static final String URL_GETMODEL_LIST_BYMAKE = API_URL + "makes/"; // Append make name + /models
