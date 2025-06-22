@@ -122,6 +122,14 @@ public class AuthController {
             @RequestParam("email") String email,
             @RequestParam("profile_pic") String profilePic) {
         try {
+            // Debug: Log received parameters
+            System.out.println("Update request received:");
+            System.out.println("user_id: " + userId);
+            System.out.println("fullname: " + fullname);
+            System.out.println("phone: " + phone);
+            System.out.println("email: " + email);
+            System.out.println("profile_pic length: " + (profilePic != null ? profilePic.length() : "null"));
+            
             // Find user by ID
             User user = userRepository.findById(Long.parseLong(userId))
                     .orElse(null);
@@ -170,6 +178,7 @@ public class AuthController {
             return ResponseEntity.ok(AuthResponse.success("Profile updated successfully", null, userDto));
             
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest()
                     .body(AuthResponse.error("Update failed: " + e.getMessage()));
         }
@@ -177,10 +186,32 @@ public class AuthController {
     
     private void saveBase64Image(String base64Image, String filename) {
         try {
+            // Debug: Log the first few characters to see what we're receiving
+            System.out.println("Received image data length: " + (base64Image != null ? base64Image.length() : "null"));
+            if (base64Image != null && base64Image.length() > 50) {
+                System.out.println("First 50 chars: " + base64Image.substring(0, 50));
+            }
+            
             // Remove data URL prefix if present
             String base64Data = base64Image;
-            if (base64Image.contains(",")) {
+            if (base64Image != null && base64Image.contains(",")) {
                 base64Data = base64Image.substring(base64Image.indexOf(",") + 1);
+            }
+            
+            // Validate base64 string
+            if (base64Data == null || base64Data.trim().isEmpty()) {
+                throw new IllegalArgumentException("Base64 data is null or empty");
+            }
+            
+            // Clean the base64 string - remove newlines, spaces, and other whitespace
+            base64Data = base64Data.replaceAll("\\s+", "");
+            
+            // Check if the string contains only valid base64 characters
+            String validBase64Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+            for (char c : base64Data.toCharArray()) {
+                if (validBase64Chars.indexOf(c) == -1) {
+                    throw new IllegalArgumentException("Invalid base64 character: " + c + " (ASCII: " + (int)c + ")");
+                }
             }
             
             // Decode base64 to bytes
@@ -198,6 +229,8 @@ public class AuthController {
             java.io.FileOutputStream fos = new java.io.FileOutputStream(file);
             fos.write(imageBytes);
             fos.close();
+            
+            System.out.println("Successfully saved image: " + filename);
             
         } catch (Exception e) {
             e.printStackTrace();

@@ -74,7 +74,10 @@ public class CarService {
     }
     
     public List<Car> getCarsByMake(String makeName) {
-        String sql = "SELECT * FROM cars WHERE make = ? ORDER BY created_at DESC";
+        String sql = "SELECT c.*, u.full_name, u.phone, u.profile_pic " +
+                     "FROM cars c " +
+                     "LEFT JOIN users u ON c.seller_id = u.id " +
+                     "WHERE c.make = ? ORDER BY c.created_at DESC";
         
         return jdbcTemplate.query(sql, new CarRowMapper(), makeName);
     }
@@ -101,8 +104,21 @@ public class CarService {
             car.setPhotos(rs.getString("photos"));
             car.setViews(rs.getInt("views"));
             car.setLocation(rs.getString("location"));
-            car.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
-            car.setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime());
+            
+            // Handle null timestamps
+            java.sql.Timestamp createdAt = rs.getTimestamp("created_at");
+            if (createdAt != null) {
+                car.setCreatedAt(createdAt.toLocalDateTime());
+            } else {
+                car.setCreatedAt(java.time.LocalDateTime.now());
+            }
+            
+            java.sql.Timestamp updatedAt = rs.getTimestamp("updated_at");
+            if (updatedAt != null) {
+                car.setUpdatedAt(updatedAt.toLocalDateTime());
+            } else {
+                car.setUpdatedAt(java.time.LocalDateTime.now());
+            }
             
             // Create and set the seller (User) object from the joined data
             if (rs.getObject("seller_id") != null) {

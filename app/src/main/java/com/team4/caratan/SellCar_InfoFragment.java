@@ -116,8 +116,15 @@ public class SellCar_InfoFragment extends Fragment {
                     edtYear.requestFocus();
                     return;
                 }
-                if (Integer.parseInt(year) < 1900 || Integer.parseInt(year) > 2024) {
-                    edtYear.setError("Car Year Is Not Valid!");
+                try {
+                    int yearValue = Integer.parseInt(year);
+                    if (yearValue < 1900 || yearValue > 2024) {
+                        edtYear.setError("Car Year Is Not Valid!");
+                        edtYear.requestFocus();
+                        return;
+                    }
+                } catch (NumberFormatException e) {
+                    edtYear.setError("Car Year Must Be A Valid Number!");
                     edtYear.requestFocus();
                     return;
                 }
@@ -126,8 +133,15 @@ public class SellCar_InfoFragment extends Fragment {
                     edtMileage.requestFocus();
                     return;
                 }
-                if (Integer.parseInt(mileage) < 0 || Integer.parseInt(mileage) > 999999) {
-                    edtMileage.setError("Car Mileage Is Not Valid!");
+                try {
+                    int mileageValue = Integer.parseInt(mileage);
+                    if (mileageValue < 0 || mileageValue > 999999) {
+                        edtMileage.setError("Car Mileage Is Not Valid!");
+                        edtMileage.requestFocus();
+                        return;
+                    }
+                } catch (NumberFormatException e) {
+                    edtMileage.setError("Car Mileage Must Be A Valid Number!");
                     edtMileage.requestFocus();
                     return;
                 }
@@ -136,8 +150,15 @@ public class SellCar_InfoFragment extends Fragment {
                     edtPrice.requestFocus();
                     return;
                 }
-                if (Integer.parseInt(price) < 2000000) {
-                    edtPrice.setError("Cannot sell car below Rp 2,000,000!");
+                try {
+                    int priceValue = Integer.parseInt(price);
+                    if (priceValue < 2000000) {
+                        edtPrice.setError("Cannot sell car below Rp 2,000,000!");
+                        edtPrice.requestFocus();
+                        return;
+                    }
+                } catch (NumberFormatException e) {
+                    edtPrice.setError("Car Price Must Be A Valid Number!");
                     edtPrice.requestFocus();
                     return;
                 }
@@ -162,9 +183,13 @@ public class SellCar_InfoFragment extends Fragment {
     }
 
     private void getMakeSpinnerData() {
+        Toast.makeText(requireContext(), "Loading car brands...", Toast.LENGTH_SHORT).show();
+        
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.URL_GET_MAKE,
                 response -> {
                     try {
+                        Toast.makeText(requireContext(), "Received response: " + response.substring(0, Math.min(100, response.length())), Toast.LENGTH_SHORT).show();
+                        
                         // The backend returns a simple array of strings, not a JSON object
                         JSONArray jsonArray = new JSONArray(response);
 
@@ -182,16 +207,30 @@ public class SellCar_InfoFragment extends Fragment {
                         // Set a default selection if available
                         if (makeList.size() > 0) {
                             selectedMake = makeList.get(0);
+                            Toast.makeText(requireContext(), "Loaded " + makeList.size() + " car brands", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(requireContext(), "No car brands found", Toast.LENGTH_SHORT).show();
                         }
                         
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(requireContext(), "Error parsing car makes data",
+                        Toast.makeText(requireContext(), "Error parsing car makes data: " + e.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(requireContext(), "Unexpected error: " + e.getMessage(),
                                 Toast.LENGTH_LONG).show();
                     }
                 },
                 error -> {
-                    Toast.makeText(requireContext(), "Please check your internet connection!",
+                    String errorMessage = "Network error";
+                    if (error != null) {
+                        errorMessage = "Error: " + error.getMessage();
+                        if (error.networkResponse != null) {
+                            errorMessage += " (Status: " + error.networkResponse.statusCode + ")";
+                        }
+                    }
+                    Toast.makeText(requireContext(), errorMessage,
                             Toast.LENGTH_LONG).show();
                 }
         );

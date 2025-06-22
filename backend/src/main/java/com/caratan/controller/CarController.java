@@ -87,7 +87,7 @@ public class CarController {
 
         for (Car car : cars) {
             Map<String, Object> carMap = new HashMap<>();
-            carMap.put("usedcar_id", car.getId() != null ? car.getId().toString() : "");
+            carMap.put("usedCar_id", car.getId() != null ? car.getId().toString() : "");
             carMap.put("make_name", car.getMake() != null ? car.getMake() : "N/A");
             carMap.put("model_name", car.getModel() != null ? car.getModel() : "N/A");
             carMap.put("model_type", car.getType() != null ? car.getType() : "N/A");
@@ -258,8 +258,13 @@ public class CarController {
         try {
             // Remove data URL prefix if present
             String base64Data = base64Image;
-            if (base64Image.contains(",")) {
+            if (base64Image != null && base64Image.contains(",")) {
                 base64Data = base64Image.substring(base64Image.indexOf(",") + 1);
+            }
+            
+            // Clean the base64 string - remove newlines, spaces, and other whitespace
+            if (base64Data != null) {
+                base64Data = base64Data.replaceAll("\\s+", "");
             }
             
             // Decode base64 to bytes
