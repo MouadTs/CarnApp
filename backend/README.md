@@ -57,15 +57,15 @@ mysql -u root -p
 CREATE DATABASE Car_DB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- Create user
-CREATE USER 'caratan_user'@'localhost' IDENTIFIED BY 'caratan_password';
-GRANT ALL PRIVILEGES ON Car_DB.* TO 'caratan_user'@'localhost';
+CREATE USER 'namer'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON Car_DB.* TO 'user'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
 ### 3. Initialize Database
 ```bash
 # Run the initialization script
-mysql -u caratan_user -p Car_DB < src/main/resources/db/init.sql
+mysql -u user -p Car_DB < src/main/resources/db/init.sql
 ```
 
 ## API Endpoints
