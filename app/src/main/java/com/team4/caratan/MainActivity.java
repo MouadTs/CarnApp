@@ -48,8 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         dbHandler.close();
 
-        // Set up logout button
-        binding.btnLogout.setOnClickListener(v -> showLogoutDialog());
+
 
         openHome();
 

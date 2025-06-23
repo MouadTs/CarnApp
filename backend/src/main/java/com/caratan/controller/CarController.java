@@ -28,9 +28,50 @@ public class CarController {
     @GetMapping
     public ResponseEntity<Map<String, Object>> getAllCars() {
         List<Car> cars = carService.getAllCars();
+        List<Map<String, Object>> carList = new ArrayList<>();
+
+        for (Car car : cars) {
+            Map<String, Object> carMap = new HashMap<>();
+            carMap.put("usedCar_id", car.getId() != null ? car.getId().toString() : "");
+            carMap.put("make_name", car.getMake() != null ? car.getMake() : "N/A");
+            carMap.put("model_name", car.getModel() != null ? car.getModel() : "N/A");
+            carMap.put("model_type", car.getType() != null ? car.getType() : "N/A");
+            carMap.put("year", car.getYear() != null ? car.getYear().toString() : "N/A");
+            carMap.put("mileage", car.getMileage() != null ? car.getMileage().toString() : "0");
+            carMap.put("model_transmission", car.getTransmission() != null ? car.getTransmission() : "N/A");
+            carMap.put("location", car.getLocation() != null ? car.getLocation() : "N/A");
+            carMap.put("price", car.getPrice() != null ? car.getPrice().toPlainString() : "0");
+            
+            String mainPhoto = "images/default_car.png";
+            if (car.getPhotos() != null && !car.getPhotos().isEmpty()) {
+                String firstPhoto = car.getPhotos().split(",")[0];
+                if (firstPhoto.startsWith("car_")) {
+                    mainPhoto = "/uploads/" + firstPhoto;
+                } else {
+                    mainPhoto = firstPhoto;
+                }
+            }
+            carMap.put("car_mainPhoto", mainPhoto);
+            
+            String makeLogo = "images/default_logo.png";
+            if (car.getMake() != null) {
+                String carMakeName = car.getMake().toLowerCase();
+                // Check if we have a specific logo for this make
+                if (carMakeName.equals("toyota") || carMakeName.equals("honda") || carMakeName.equals("bmw") ||
+                    carMakeName.equals("mpv") || carMakeName.equals("pickup") || carMakeName.equals("van")) {
+                    makeLogo = "images/" + carMakeName + "_logo.png";
+                } else {
+                    // Use default logo for unknown makes
+                    makeLogo = "images/default_logo.png";
+                }
+            }
+            carMap.put("make_logo", makeLogo);
+
+            carList.add(carMap);
+        }
         
         Map<String, Object> response = new HashMap<>();
-        response.put("usedcar", cars);
+        response.put("usedcar", carList);
         
         return ResponseEntity.ok(response);
     }
@@ -48,8 +89,17 @@ public class CarController {
     
     @GetMapping("/makes")
     public ResponseEntity<List<String>> getAllMakes() {
-        List<String> makes = carService.getPopularMakes();
+        // Always return a static list of popular brands
+        List<String> makes = java.util.Arrays.asList(
+            "Toyota", "Honda", "BMW", "Mercedes", "Audi", "Nissan", "Hyundai", "Kia", "Volkswagen", "Peugeot", "Renault", "Chevrolet", "Ford", "Mazda", "Suzuki"
+        );
         return ResponseEntity.ok(makes);
+    }
+    
+    @GetMapping("/locations")
+    public ResponseEntity<List<String>> getAllLocations() {
+        List<String> locations = carService.getUniqueLocations();
+        return ResponseEntity.ok(locations);
     }
     
     @GetMapping("/make/{makeName}/details")
@@ -108,7 +158,12 @@ public class CarController {
             
             String mainPhoto = "images/default_car.png";
             if (car.getPhotos() != null && !car.getPhotos().isEmpty()) {
-                mainPhoto = car.getPhotos().split(",")[0];
+                String firstPhoto = car.getPhotos().split(",")[0];
+                if (firstPhoto.startsWith("car_")) {
+                    mainPhoto = "/uploads/" + firstPhoto;
+                } else {
+                    mainPhoto = firstPhoto;
+                }
             }
             carMap.put("car_mainPhoto", mainPhoto);
             
@@ -142,7 +197,7 @@ public class CarController {
         if (makeNameLower.equals("toyota") || makeNameLower.equals("honda") || makeNameLower.equals("bmw") ||
             makeNameLower.equals("mpv") || makeNameLower.equals("pickup") || makeNameLower.equals("van")) {
             String logoUrl = "/images/" + makeNameLower + "_logo.png";
-            return ResponseEntity.ok(logoUrl);
+        return ResponseEntity.ok(logoUrl);
         } else {
             // Use default logo for unknown makes
             return ResponseEntity.ok("/images/default_logo.png");
@@ -158,7 +213,7 @@ public class CarController {
             if (makeNameLower.equals("toyota") || makeNameLower.equals("honda") || makeNameLower.equals("bmw") ||
                 makeNameLower.equals("mpv") || makeNameLower.equals("pickup") || makeNameLower.equals("van")) {
                 String logoUrl = "/images/" + makeNameLower + "_logo.png";
-                return ResponseEntity.ok(logoUrl);
+        return ResponseEntity.ok(logoUrl);
             }
         }
         // Use default logo for unknown makes
@@ -166,8 +221,15 @@ public class CarController {
     }
     
     @GetMapping("/search")
-    public ResponseEntity<Map<String, Object>> searchCars(@RequestParam("q") String query) {
-        List<Car> cars = carService.searchCars(query);
+    public ResponseEntity<Map<String, Object>> searchCars(
+            @RequestParam(value = "q", required = false) String query,
+            @RequestParam(value = "make", required = false) String make,
+            @RequestParam(value = "model", required = false) String model,
+            @RequestParam(value = "location", required = false) String location,
+            @RequestParam(value = "minPrice", required = false) Double minPrice,
+            @RequestParam(value = "maxPrice", required = false) Double maxPrice) {
+        
+        List<Car> cars = carService.searchCarsWithFilters(query, make, model, location, minPrice, maxPrice);
         List<Map<String, Object>> carList = new ArrayList<>();
 
         for (Car car : cars) {
@@ -184,7 +246,12 @@ public class CarController {
             
             String mainPhoto = "images/default_car.png";
             if (car.getPhotos() != null && !car.getPhotos().isEmpty()) {
-                mainPhoto = car.getPhotos().split(",")[0];
+                String firstPhoto = car.getPhotos().split(",")[0];
+                if (firstPhoto.startsWith("car_")) {
+                    mainPhoto = "/uploads/" + firstPhoto;
+                } else {
+                    mainPhoto = firstPhoto;
+                }
             }
             carMap.put("car_mainPhoto", mainPhoto);
             
@@ -249,6 +316,7 @@ public class CarController {
             String carPhoto1 = params.get("carPhoto_1");
             String carPhoto2 = params.get("carPhoto_2");
             String carPhoto3 = params.get("carPhoto_3");
+            String carLocation = params.get("location");
             
             // Validate required fields
             if (userIdStr == null || makeName == null || modelName == null || modelYear == null || 
@@ -283,7 +351,7 @@ public class CarController {
             car.setDescription(modelDesc != null ? modelDesc : "");
             car.setTransmission("Manual"); // Default value
             car.setFuelType("Petrol"); // Default value
-            car.setLocation("Jakarta"); // Default value
+            car.setLocation(carLocation != null ? carLocation : "Jakarta");
             
             // Handle base64 encoded photos
             StringBuilder photos = new StringBuilder();
@@ -467,17 +535,16 @@ public class CarController {
                 // Create photos array
                 List<Map<String, String>> photos = new ArrayList<>();
                 
-                // Add main photo
-                Map<String, String> mainPhoto = new HashMap<>();
-                mainPhoto.put("car_mainPhoto", car.getPhotos());
-                photos.add(mainPhoto);
-                
                 // Add additional photos if available
                 if (car.getPhotos() != null && !car.getPhotos().isEmpty()) {
                     String[] photoUrls = car.getPhotos().split(",");
                     for (String photoUrl : photoUrls) {
                         Map<String, String> photo = new HashMap<>();
-                        photo.put("photos", photoUrl.trim());
+                        String photoPath = photoUrl.trim();
+                        if (photoPath.startsWith("car_")) {
+                            photoPath = "/uploads/" + photoPath;
+                        }
+                        photo.put("photos", photoPath);
                         photos.add(photo);
                     }
                 }

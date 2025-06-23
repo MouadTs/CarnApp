@@ -40,11 +40,11 @@
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="92dp"
-        android:layout_height="32dp"
+        android:layout_width="122dp"
+        android:layout_height="62dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:src="@drawable/logo_caratan_notitle"
+        android:src="@drawable/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -94,8 +94,9 @@
                 android:fontFamily="sans-serif"
                 android:gravity="center"
                 android:text="Buy Car"
+                android:backgroundTint="#0D47A1"
                 android:textAllCaps="false"
-                android:textColor="#0E0E0E"
+                android:textColor="#FFFF"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:cornerRadius="20dp"
@@ -110,21 +111,20 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_weight="1"
-                android:backgroundTint="#FFFFFF"
                 android:elevation="10dp"
                 android:fontFamily="sans-serif"
                 android:gravity="center"
+                android:backgroundTint="#0D47A1"
                 android:text="Sell Car"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textColor="#0E0E0E"
+                android:textColor="#FFFF"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:cornerRadius="20dp"
                 app:icon="@drawable/carjual"
                 app:iconGravity="textStart"
                 app:iconTint="#0E0E0E"
-                app:strokeColor="@color/purple_500"
                 app:strokeWidth="4dp" />
         </LinearLayout>
 

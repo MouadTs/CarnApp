@@ -100,7 +100,7 @@ public class SellCar_CoFragment extends Fragment {
         txtColor.setText(color);
         txtYear.setText(year);
         txtMileage.setText(decim_km + " KM");
-        txtPrice.setText("Rp " + decim_rp);
+        txtPrice.setText(decim_rp + " MAD");
         txtDesc.setText(desc);
 
         requireActivity().runOnUiThread(() -> photo1.setImageBitmap(bp1));
@@ -216,6 +216,7 @@ public class SellCar_CoFragment extends Fragment {
                 params.put("carPhoto_1", base64Image_1);
                 params.put("carPhoto_2", base64Image_2);
                 params.put("carPhoto_3", base64Image_3);
+                params.put("location", ((SellCarActivity)getActivity()).carLocation);
                 return params;
             }
         };

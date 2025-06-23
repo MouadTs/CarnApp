@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Tentang Aplikasi"
+        android:text="About the app"
         android:textColor="#0E0E0E"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -28,6 +28,9 @@
         android:background="@drawable/roundcorner"
         android:elevation="8dp"
         android:scaleType="center"
+        android:backgroundTint="#FFFFFF"
+        app:strokeColor="#0D47A1"
+        app:strokeWidth="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/backicon"
@@ -35,13 +38,17 @@
 
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="236dp"
-        android:layout_height="64dp"
+        android:layout_width="315dp"
+        android:layout_height="221dp"
         android:layout_marginTop="24dp"
+        android:background="@drawable/roundcorner"
+        android:padding="8dp"
+        app:strokeColor="#FF6B35"
+        app:strokeWidth="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnBack2"
-        app:srcCompat="@drawable/logo_caratan_notitle" />
+        app:srcCompat="@drawable/logo" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -53,7 +60,11 @@
         android:background="@drawable/roundcorner"
         android:elevation="8dp"
         android:orientation="vertical"
+        android:backgroundTint="#FFFFFF"
+        app:strokeColor="#4CAF50"
+        app:strokeWidth="2dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6">
 
@@ -62,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:text="CaRatan"
+            android:text="7DIDA LIK"
             android:textAlignment="center"
             android:textColor="#0E0E0E"
             android:textSize="16sp"
@@ -75,7 +86,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
-            android:text="CaRatan is a car buying and selling application that makes it easy for users to find and sell used cars. This application provides various features such as car search, car information, and secure payment methods."
+            android:text="7DIDA LIK is a car buying and selling application that makes it easy for users to find and sell used cars. This application provides various features such as car search, car information, and secure payment methods."
             android:textAlignment="center"
             android:textColor="#0E0E0E"
             android:textSize="16sp" />
@@ -87,7 +98,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
-            android:text="Team 4 Members:"
+            android:text="Team 5 Members:"
             android:textAlignment="center"
             android:textColor="#0E0E0E"
             android:textSize="18sp"
@@ -100,184 +111,11 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:text="1. John Doe - Project Manager\n2. Jane Smith - Developer\n3. Bob Johnson - Designer\n4. Alice Brown - Tester"
+            android:layout_marginBottom="16dp"
+            android:text="1. Mouad ISMAILI \n2. Amine BAHDA \n3. Omar ELKHAYATI\n4. Oussama KHALIL\n5. Ayman ACHBAL"
             android:textAlignment="center"
             android:textColor="#0E0E0E"
             android:textSize="14sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="8dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="Adhelio Reyhandro"
-                    android:textAlignment="center"
-                    android:textColor="#FF9800"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="(00000059870)"
-                    android:textAlignment="center"
-                    android:textColor="#0E0E0E" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="Aura Lintang P. P. A."
-                    android:textAlignment="center"
-                    android:textColor="#FF9800"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="(00000061031)"
-                    android:textAlignment="center"
-                    android:textColor="#0E0E0E" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="8dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="Gabriel Buffon H."
-                    android:textAlignment="center"
-                    android:textColor="#FF9800"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="(00000061688)"
-                    android:textAlignment="center"
-                    android:textColor="#0E0E0E" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="Meisha Geovanni"
-                    android:textAlignment="center"
-                    android:textColor="#FF9800"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="(00000055487)"
-                    android:textAlignment="center"
-                    android:textColor="#0E0E0E" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="16dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="Sultan Rangga A. S."
-                    android:textAlignment="center"
-                    android:textColor="#FF9800"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="(00000061918)"
-                    android:textAlignment="center"
-                    android:textColor="#0E0E0E" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="Michele Stephanie"
-                    android:textAlignment="center"
-                    android:textColor="#FF9800"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="(00000055477)"
-                    android:textAlignment="center"
-                    android:textColor="#0E0E0E" />
-            </LinearLayout>
-        </LinearLayout>
 
     </LinearLayout>
 
@@ -291,6 +129,9 @@
         android:background="@drawable/roundcorner"
         android:elevation="8dp"
         android:orientation="vertical"
+        android:backgroundTint="#FFFFFF"
+        app:strokeColor="#2196F3"
+        app:strokeWidth="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -315,7 +156,9 @@
             android:layout_marginBottom="8dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
-            app:cardMaxElevation="0dp">
+            app:cardMaxElevation="0dp"
+            app:strokeColor="#FF9800"
+            app:strokeWidth="1dp">
 
             <fragment
                 android:id="@+id/map"

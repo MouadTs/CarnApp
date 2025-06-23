@@ -20,14 +20,15 @@
 
             <ImageView
                 android:id="@+id/imageView7"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="47dp"
+                android:layout_height="46dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="68dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.463"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/sign_out_alt" />
+                app:srcCompat="@drawable/logout" />
 
             <TextView
                 android:id="@+id/textView10"
@@ -85,6 +86,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
                     android:text="YES"
+                    android:backgroundTint="#0D47A1"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     app:cornerRadius="20dp" />

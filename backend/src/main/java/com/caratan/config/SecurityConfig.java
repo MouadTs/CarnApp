@@ -37,6 +37,7 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers("/auth/**").permitAll()  // Allow auth endpoints
+                .requestMatchers("/cars").permitAll() // Allow public car list
                 .requestMatchers("/cars/makes").permitAll() // Allow public car makes
                 .requestMatchers("/cars/make/**").permitAll() // Allow public car makes with parameters
                 .requestMatchers("/cars/search").permitAll() // Allow public search
@@ -44,6 +45,8 @@ public class SecurityConfig {
                 .requestMatchers("/cars/info").permitAll()  // Make car info public
                 .requestMatchers("/cars/photos").permitAll() // Make car photos public
                 .requestMatchers("/cars/update-views").permitAll() // Make update views public
+                .requestMatchers("/uploads/**").permitAll() // Allow access to uploaded images
+                .requestMatchers("/images/**").permitAll() // Allow access to static images
                 .requestMatchers("/error").permitAll() // Allow error endpoint
                 .anyRequest().authenticated()  // Require authentication for other endpoints
             )

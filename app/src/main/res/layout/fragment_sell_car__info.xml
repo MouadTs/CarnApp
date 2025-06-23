@@ -243,7 +243,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/roundcorner_g"
-                    android:hint="Enter car price in Rp"
+                    android:hint="Enter car price in MAD"
                     android:inputType="number"
                     android:padding="16dp" />
 
@@ -285,6 +285,38 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/roundcorner"
+                android:elevation="4dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Location"
+                    android:textColor="#0E0E0E"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinnerLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/roundcorner_g" />
+
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
@@ -300,11 +332,13 @@
 
         <Button
             android:id="@+id/SELL_btnNext1"
-            android:layout_width="108dp"
+            android:layout_width="110dp"
             android:layout_height="54dp"
             android:layout_marginEnd="16dp"
-            android:text="Lanjut"
+            android:text="Continue"
             app:cornerRadius="24dp"
+            android:backgroundTint="#0D47A1"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

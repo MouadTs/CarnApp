@@ -117,7 +117,7 @@ public class HomeListAdapter extends ArrayAdapter<carSmallCard> {
 
         double rp = Double.parseDouble(arrayListCarSmallCard.get(position).getCar_price());
         String decim_rp = decim.format(rp);
-        txtPrice.setText(decim_rp);
+        txtPrice.setText(decim_rp + " MAD");
 
         return view;
     }

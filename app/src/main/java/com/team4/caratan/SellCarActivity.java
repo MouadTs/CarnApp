@@ -19,7 +19,7 @@ public class SellCarActivity extends AppCompatActivity {
     private ProgressBar progress_h;
     private TextView title_sell;
 
-    public String carMake, carModel, carType, carColor, carYear, carMileage, carPrice, carDesc;
+    public String carMake, carModel, carType, carColor, carYear, carMileage, carPrice, carDesc, carLocation;
     public Bitmap photo1, photo2, photo3;
 
     @Override
@@ -119,6 +119,10 @@ public class SellCarActivity extends AppCompatActivity {
 
     public String getDesc() {
         return carDesc;
+    }
+
+    public String getLocation() {
+        return carLocation;
     }
 
     public Bitmap getPhoto1() {

@@ -55,9 +55,10 @@ public class AboutAppActivity extends AppCompatActivity implements OnMapReadyCal
     public void onMapReady(@NonNull GoogleMap googleMap) {
         map = googleMap;
 
-        office = new LatLng(-6.192152, 106.768274);
+        // Tangier, Morocco coordinates
+        office = new LatLng(35.7595, -5.8340);
 
-        map.addMarker(new MarkerOptions().position(office).title("CaRatan Headquarter"));
+        map.addMarker(new MarkerOptions().position(office).title("CaRatan Headquarter - Tangier, Morocco"));
         map.moveCamera(CameraUpdateFactory.newLatLng(office));
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(office, 14));
     }

@@ -62,6 +62,58 @@ public class CarService {
         return jdbcTemplate.query(sql, new CarRowMapper(), searchPattern, searchPattern, searchPattern);
     }
     
+    public List<Car> searchCarsWithFilters(String query, String make, String model, String location, Double minPrice, Double maxPrice) {
+        StringBuilder sqlBuilder = new StringBuilder();
+        sqlBuilder.append("SELECT c.*, u.full_name, u.phone, u.profile_pic ");
+        sqlBuilder.append("FROM cars c ");
+        sqlBuilder.append("LEFT JOIN users u ON c.seller_id = u.id ");
+        sqlBuilder.append("WHERE 1=1 ");
+        
+        java.util.List<Object> params = new java.util.ArrayList<>();
+        
+        // Add search query filter
+        if (query != null && !query.trim().isEmpty()) {
+            sqlBuilder.append("AND (c.make LIKE ? OR c.model LIKE ? OR c.description LIKE ?) ");
+            String searchPattern = "%" + query.trim() + "%";
+            params.add(searchPattern);
+            params.add(searchPattern);
+            params.add(searchPattern);
+        }
+        
+        // Add make filter
+        if (make != null && !make.trim().isEmpty()) {
+            sqlBuilder.append("AND c.make = ? ");
+            params.add(make.trim());
+        }
+        
+        // Add model filter
+        if (model != null && !model.trim().isEmpty()) {
+            sqlBuilder.append("AND c.model = ? ");
+            params.add(model.trim());
+        }
+        
+        // Add location filter
+        if (location != null && !location.trim().isEmpty()) {
+            sqlBuilder.append("AND c.location = ? ");
+            params.add(location.trim());
+        }
+        
+        // Add price range filter
+        if (minPrice != null) {
+            sqlBuilder.append("AND c.price >= ? ");
+            params.add(minPrice);
+        }
+        
+        if (maxPrice != null) {
+            sqlBuilder.append("AND c.price <= ? ");
+            params.add(maxPrice);
+        }
+        
+        sqlBuilder.append("ORDER BY c.created_at DESC");
+        
+        return jdbcTemplate.query(sqlBuilder.toString(), new CarRowMapper(), params.toArray());
+    }
+    
     public void incrementViews(Long carId) {
         String sql = "UPDATE cars SET views = views + 1 WHERE id = ?";
         jdbcTemplate.update(sql, carId);
@@ -69,6 +121,12 @@ public class CarService {
     
     public List<String> getPopularMakes() {
         String sql = "SELECT DISTINCT make FROM cars ORDER BY make ASC";
+        
+        return jdbcTemplate.queryForList(sql, String.class);
+    }
+    
+    public List<String> getUniqueLocations() {
+        String sql = "SELECT DISTINCT location FROM cars WHERE location IS NOT NULL AND location != '' ORDER BY location ASC";
         
         return jdbcTemplate.queryForList(sql, String.class);
     }

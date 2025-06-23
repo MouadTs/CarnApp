@@ -337,7 +337,7 @@ public class carInformationActivity extends AppCompatActivity implements OnMapRe
                         if (txtCarColor != null) txtCarColor.setText(color);
                         if (txtCarSeat != null) txtCarSeat.setText(seat);
                         if (txtCarDesc != null) txtCarDesc.setText(description);
-                        if (txtCarPrice != null) txtCarPrice.setText("Rp. " + decim_rp);
+                        if (txtCarPrice != null) txtCarPrice.setText(decim_rp + " MAD");
                         if (txtViewCount != null) txtViewCount.setText("Dilihat " + decim_vw + " kali");
                         if (txtPostDate != null) txtPostDate.setText("Diunggah pada " + post_date);
                         if (txtCarPenjual != null) txtCarPenjual.setText(fullname);

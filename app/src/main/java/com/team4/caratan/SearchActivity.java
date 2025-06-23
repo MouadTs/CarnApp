@@ -24,6 +24,7 @@ public class SearchActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private HomeListAdapter adapter;
     private ArrayList<carSmallCard> carList = new ArrayList<>();
+    private android.widget.TextView resultsCountText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +34,13 @@ public class SearchActivity extends AppCompatActivity {
         searchView = findViewById(R.id.search_view);
         listView = findViewById(R.id.search_list_view);
         progressBar = findViewById(R.id.search_progress_bar);
+        resultsCountText = findViewById(R.id.results_count_text);
 
         adapter = new HomeListAdapter(this, carList);
         listView.setAdapter(adapter);
+
+        // Set up back button
+        findViewById(R.id.btn_back_search).setOnClickListener(v -> finish());
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -46,7 +51,6 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // You can implement live search here if desired
                 return false;
             }
         });
@@ -57,6 +61,12 @@ public class SearchActivity extends AppCompatActivity {
             intent.putExtra("usedcar_id", selectedCar.getCar_id());
             startActivity(intent);
         });
+
+        // Check if filters were passed from ExploreFragment
+        String searchParams = getIntent().getStringExtra("search_params");
+        if (searchParams != null && !searchParams.isEmpty()) {
+            performFilteredSearch(searchParams);
+        }
     }
 
     private void performSearch(String query) {
@@ -66,7 +76,6 @@ public class SearchActivity extends AppCompatActivity {
 
         String url = Constant.API_URL + "cars/search?q=" + query;
 
-        // Endpoint is now public, no auth needed
         StringRequest request = new StringRequest(
                 Request.Method.GET,
                 url,
@@ -75,10 +84,8 @@ public class SearchActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonResponse = new JSONObject(response);
                         JSONArray jsonArray = jsonResponse.getJSONArray("usedcar");
-                        
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
-
                             String usedcar_id = object.getString("usedCar_id");
                             String make_name = object.getString("make_name");
                             String model_name = object.getString("model_name");
@@ -90,13 +97,12 @@ public class SearchActivity extends AppCompatActivity {
                             String price = object.getString("price");
                             String mainPhoto = object.getString("car_mainPhoto");
                             String make_logo = object.getString("make_logo");
-
                             carSmallCard car = new carSmallCard(usedcar_id, make_name, model_name, model_type, year,
                                     mileage, model_transmission, location, price, mainPhoto, make_logo);
                             carList.add(car);
                         }
                         adapter.notifyDataSetChanged();
-
+                        resultsCountText.setText(carList.size() + " results");
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Toast.makeText(SearchActivity.this, "Error parsing search results", Toast.LENGTH_SHORT).show();
@@ -107,7 +113,51 @@ public class SearchActivity extends AppCompatActivity {
                     Toast.makeText(SearchActivity.this, "Search failed: " + (error.getMessage() != null ? error.getMessage() : "No response"), Toast.LENGTH_SHORT).show();
                 }
         );
+        RequestHandler.getInstance(this).addToRequestQueue(request);
+    }
 
+    private void performFilteredSearch(String searchParams) {
+        progressBar.setVisibility(View.VISIBLE);
+        carList.clear();
+        adapter.notifyDataSetChanged();
+        String url = Constant.API_URL + "cars/search?" + searchParams;
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                url,
+                response -> {
+                    progressBar.setVisibility(View.GONE);
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        JSONArray jsonArray = jsonResponse.getJSONArray("usedcar");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            String usedcar_id = object.getString("usedCar_id");
+                            String make_name = object.getString("make_name");
+                            String model_name = object.getString("model_name");
+                            String model_type = object.getString("model_type");
+                            String year = object.getString("year");
+                            String mileage = object.getString("mileage");
+                            String model_transmission = object.getString("model_transmission");
+                            String location = object.getString("location");
+                            String price = object.getString("price");
+                            String mainPhoto = object.getString("car_mainPhoto");
+                            String make_logo = object.getString("make_logo");
+                            carSmallCard car = new carSmallCard(usedcar_id, make_name, model_name, model_type, year,
+                                    mileage, model_transmission, location, price, mainPhoto, make_logo);
+                            carList.add(car);
+                        }
+                        adapter.notifyDataSetChanged();
+                        resultsCountText.setText(carList.size() + " results");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(SearchActivity.this, "Error parsing search results", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(SearchActivity.this, "Search failed: " + (error.getMessage() != null ? error.getMessage() : "No response"), Toast.LENGTH_SHORT).show();
+                }
+        );
         RequestHandler.getInstance(this).addToRequestQueue(request);
     }
 } 

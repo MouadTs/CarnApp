@@ -34,10 +34,10 @@ public class SellCar_InfoFragment extends Fragment {
 
     private Button btnNext1;
     private EditText edtYear, edtMileage, edtPrice, edtDesc, edtModel, edtType, edtColor;
-    private Spinner spinnerBrand;
+    private Spinner spinnerBrand, spinnerLocation;
 
     private ArrayList<String> makeList = new ArrayList<>();
-    private String selectedMake, model, type, color, year, mileage, price, desc;
+    private String selectedMake, model, type, color, year, mileage, price, desc, selectedLocation;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +58,7 @@ public class SellCar_InfoFragment extends Fragment {
         edtType = requireView().findViewById(R.id.edtType);
         edtColor = requireView().findViewById(R.id.edtColor);
         spinnerBrand = requireView().findViewById(R.id.spinnerBrand);
+        spinnerLocation = requireView().findViewById(R.id.spinnerLocation);
         btnNext1 = requireView().findViewById(R.id.SELL_btnNext1);
 
         getMakeSpinnerData();
@@ -69,6 +70,22 @@ public class SellCar_InfoFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+        String[] locations = {"Tangier", "Casablanca", "Rabat", "Marrakech", "Fez", "Agadir"};
+        ArrayAdapter<String> locationAdapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item, locations);
+        locationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerLocation.setAdapter(locationAdapter);
+        spinnerLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedLocation = parent.getItemAtPosition(position).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selectedLocation = "";
             }
         });
 
@@ -153,7 +170,12 @@ public class SellCar_InfoFragment extends Fragment {
                 try {
                     int priceValue = Integer.parseInt(price);
                     if (priceValue < 2000000) {
-                        edtPrice.setError("Cannot sell car below Rp 2,000,000!");
+                        edtPrice.setError("Cannot sell car below 2,000,000 MAD!");
+                        edtPrice.requestFocus();
+                        return;
+                    }
+                    if (priceValue > 200000000) {
+                        edtPrice.setError("Cannot sell car above 200,000,000 MAD!");
                         edtPrice.requestFocus();
                         return;
                     }
@@ -168,6 +190,12 @@ public class SellCar_InfoFragment extends Fragment {
                     return;
                 }
 
+                // Validate location
+                if (selectedLocation == null || selectedLocation.isEmpty()) {
+                    Toast.makeText(requireContext(), "Please select a location!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 ((SellCarActivity)getActivity()).carMake = selectedMake;
                 ((SellCarActivity)getActivity()).carModel = model;
                 ((SellCarActivity)getActivity()).carType = type;
@@ -176,6 +204,7 @@ public class SellCar_InfoFragment extends Fragment {
                 ((SellCarActivity)getActivity()).carMileage = mileage;
                 ((SellCarActivity)getActivity()).carPrice = price;
                 ((SellCarActivity)getActivity()).carDesc = desc;
+                ((SellCarActivity)getActivity()).carLocation = selectedLocation;
 
                 ((SellCarActivity)getActivity()).openSellCar_Photo();
             }
@@ -183,43 +212,33 @@ public class SellCar_InfoFragment extends Fragment {
     }
 
     private void getMakeSpinnerData() {
-        Toast.makeText(requireContext(), "Loading car brands...", Toast.LENGTH_SHORT).show();
-        
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.URL_GET_MAKE,
                 response -> {
                     try {
-                        Toast.makeText(requireContext(), "Received response: " + response.substring(0, Math.min(100, response.length())), Toast.LENGTH_SHORT).show();
-                        
-                        // The backend returns a simple array of strings, not a JSON object
+                        makeList.clear();
+                        makeList.add("Select Brand"); // Default option
                         JSONArray jsonArray = new JSONArray(response);
-
                         for (int i = 0; i < jsonArray.length(); i++) {
                             String makeName = jsonArray.getString(i);
                             makeList.add(makeName);
                         }
-
                         ArrayAdapter<String> makeAdapter = new ArrayAdapter<>(getContext(),
                                 android.R.layout.simple_spinner_item, makeList);
                         makeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
                         spinnerBrand.setAdapter(makeAdapter);
-                        
-                        // Set a default selection if available
-                        if (makeList.size() > 0) {
-                            selectedMake = makeList.get(0);
-                            Toast.makeText(requireContext(), "Loaded " + makeList.size() + " car brands", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(requireContext(), "No car brands found", Toast.LENGTH_SHORT).show();
-                        }
-                        
+                        // Set default selection
+                        spinnerBrand.setSelection(0);
+                        selectedMake = "";
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Toast.makeText(requireContext(), "Error parsing car makes data: " + e.getMessage(),
                                 Toast.LENGTH_LONG).show();
+                        setDefaultBrandSpinner();
                     } catch (Exception e) {
                         e.printStackTrace();
                         Toast.makeText(requireContext(), "Unexpected error: " + e.getMessage(),
                                 Toast.LENGTH_LONG).show();
+                        setDefaultBrandSpinner();
                     }
                 },
                 error -> {
@@ -232,9 +251,20 @@ public class SellCar_InfoFragment extends Fragment {
                     }
                     Toast.makeText(requireContext(), errorMessage,
                             Toast.LENGTH_LONG).show();
+                    setDefaultBrandSpinner();
                 }
         );
-
         RequestHandler.getInstance(getContext()).addToRequestQueue(stringRequest);
+    }
+
+    private void setDefaultBrandSpinner() {
+        makeList.clear();
+        makeList.add("Select Brand");
+        ArrayAdapter<String> makeAdapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item, makeList);
+        makeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerBrand.setAdapter(makeAdapter);
+        spinnerBrand.setSelection(0);
+        selectedMake = "";
     }
 }

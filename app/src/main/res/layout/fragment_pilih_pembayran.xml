@@ -63,7 +63,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Rp 25,000"
+                        android:text="20000000 DH"
                         android:textAlignment="textEnd"
                         android:textColor="#0e0e0e"
                         android:textSize="16sp" />
@@ -90,7 +90,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Rp 0"
+                        android:text="0 DH"
                         android:textAlignment="textEnd"
                         android:textColor="#0e0e0e"
                         android:textSize="16sp" />
@@ -117,7 +117,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Rp 0"
+                        android:text="0 DH"
                         android:textAlignment="textEnd"
                         android:textColor="#0e0e0e"
                         android:textSize="16sp" />
@@ -145,7 +145,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Rp 25,000"
+                        android:text="20000000 DH"
                         android:textAlignment="textEnd"
                         android:textColor="#0e0e0e"
                         android:textSize="16sp"
@@ -183,7 +183,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:paddingStart="8dp"
-                    android:text="BCA" />
+                    android:text="CIH" />
 
                 <RadioButton
                     android:id="@+id/rb_Mandiri"
@@ -192,7 +192,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:paddingStart="8dp"
-                    android:text="Mandiri" />
+                    android:text="BMCE" />
 
                 <RadioButton
                     android:id="@+id/rb_BNI"
@@ -201,7 +201,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:paddingStart="8dp"
-                    android:text="BNI" />
+                    android:text="Attijariwafa Bank" />
 
                 <RadioButton
                     android:id="@+id/rb_BRI"
@@ -211,7 +211,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:paddingStart="8dp"
-                    android:text="BRI" />
+                    android:text="Banque Populaire" />
             </RadioGroup>
 
         </LinearLayout>
@@ -247,8 +247,8 @@
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rp 25,000"
-                android:textColor="#F57C00"
+                android:text="20000000 DH"
+                android:textColor="#0D47A1"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -258,7 +258,9 @@
             android:layout_width="120dp"
             android:layout_height="54dp"
             android:layout_marginEnd="16dp"
-            android:text="Bayar"
+            android:text="Pay"
+            android:backgroundTint="#0D47A1"
+
             app:cornerRadius="24dp"
             app:icon="@drawable/ic_shield_check"
             app:layout_constraintBottom_toBottomOf="parent"

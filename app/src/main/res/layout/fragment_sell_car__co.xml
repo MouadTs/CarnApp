@@ -44,7 +44,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="280dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/add_photo" />
+                        android:src="@drawable/add" />
                 </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -72,7 +72,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/add_photo" />
+                        android:src="@drawable/add" />
                 </androidx.cardview.widget.CardView>
 
                 <Space
@@ -105,7 +105,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/add_photo" />
+                        android:src="@drawable/add" />
                 </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -157,7 +157,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="KIJANG INNOVA"
+                    android:text="Land Cruiser"
                     android:textAlignment="textEnd"
                     android:textColor="#0e0e0e"
                     android:textSize="16sp" />
@@ -184,7 +184,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="G 2.0"
+                    android:text="Prado"
                     android:textAlignment="textEnd"
                     android:textColor="#0e0e0e"
                     android:textSize="16sp" />
@@ -285,6 +285,7 @@
                     android:layout_weight="1"
                     android:text="Price"
                     android:textSize="16sp"
+
                     android:textStyle="italic" />
 
                 <TextView
@@ -360,8 +361,8 @@
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rp 25,000"
-                android:textColor="#F57C00"
+                android:text="2500000 DH"
+                android:textColor="#0D47A1"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -372,6 +373,7 @@
             android:layout_height="54dp"
             android:layout_marginEnd="16dp"
             android:text="Checkout"
+            android:backgroundTint="#0D47A1"
             app:cornerRadius="24dp"
             app:icon="@drawable/ic_shield_check"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -101,7 +101,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="#EDEDED"
-                android:text="Ubah Foto"
+                android:text="Change Photo"
                 android:textColor="#0E0E0E"
                 app:cornerRadius="28dp"
                 app:icon="@drawable/editicon"
@@ -168,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
-                android:text="Nama Lengkap"
+                android:text="Full name"
                 android:textColor="#0E0E0E"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -180,7 +180,6 @@
                 android:layout_marginEnd="16dp"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="belum ada"
                 android:inputType="textPersonName"
                 android:textSize="14sp"
                 tools:ignore="TouchTargetSizeCheck" />
@@ -208,7 +207,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
-                android:text="No. Telp"
+                android:text="No. Tel"
                 android:textColor="#0E0E0E"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -236,6 +235,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:text="SAVE"
+        android:backgroundTint="#0D47A1"
         app:cornerRadius="28dp"
         app:icon="@drawable/saveicon"
         app:iconGravity="textStart"

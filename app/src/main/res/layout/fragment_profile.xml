@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="#0D47A1"
     android:background="#FFC107"
     tools:context=".ProfileFragment" >
 
@@ -37,7 +38,7 @@
             android:layout_marginBottom="8dp"
             android:backgroundTint="#FFFFFF"
             android:drawableEnd="@drawable/nexticon"
-            android:text="Favorit Saya"
+            android:text=" My Favorites"
             android:textAlignment="viewStart"
             android:textAllCaps="false"
             android:textColor="#0E0E0E"
@@ -63,7 +64,7 @@
             android:layout_marginBottom="8dp"
             android:backgroundTint="#FFFFFF"
             android:drawableEnd="@drawable/nexticon"
-            android:text="Tentang Aplikasi"
+            android:text=" About the App"
             android:textAlignment="viewStart"
             android:textAllCaps="false"
             android:textColor="#0E0E0E"
@@ -118,16 +119,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
-            android:text="John Doe"
-            android:textColor="#0E0E0E"
+            android:text="Ismaili Amine"
+            android:textColor="#FFFFFF"
             android:textSize="24sp" />
 
         <TextView
             android:id="@+id/txtProfilEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="john.doe@gmail.com"
-            android:textColor="#0E0E0E" />
+            android:text="omar7elkhayati@gmail.com"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

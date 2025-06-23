@@ -84,6 +84,15 @@ public class HomeFragment extends Fragment {
         progressBar = (ProgressBar) requireView().findViewById(R.id.home_progressBar);
         txtGreet.setText("Hello, " + nama + "!");
 
+        // Add search button functionality
+        Button searchButton = (Button) requireView().findViewById(R.id.button2);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(requireActivity(), SearchActivity.class));
+            }
+        });
+
         btnJual = (Button) requireView().findViewById(R.id.home_btnJual);
         btnJual.setOnClickListener(new View.OnClickListener() {
             @Override
