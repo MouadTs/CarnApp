@@ -1,7 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/drawable/backicon.xml" value="0.1615" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/drawable/ic_cross.xml" value="0.1615" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/drawable/saveicon.xml" value="0.269" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/drawable/usericon.xml" value="0.1765" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/layout/activity_about_app.xml" value="0.22" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/layout/activity_car_by_make_list.xml" value="0.16" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/layout/activity_car_information.xml" value="0.12" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/layout/activity_car_make_list.xml" value="0.21" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/layout/activity_car_make_web_view.xml" value="0.16" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/layout/activity_edit_profile.xml" value="0.18" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/layout/activity_login.xml" value="0.15" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/layout/activity_pembayaran.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/layout/activity_sell_car.xml" value="0.18" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/layout/car_row_h.xml" value="0.25" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/layout/carmake_row.xml" value="0.17432432432432432" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/layout/fragment_explore.xml" value="0.18" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/layout/fragment_home.xml" value="0.18" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/layout/fragment_pilih_pembayran.xml" value="0.17" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/layout/fragment_profile.xml" value="0.18" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/layout/fragment_sell_car__co.xml" value="0.25" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/layout/fragment_sell_car__info.xml" value="0.25" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/layout/fragment_sell_car__photo.xml" value="0.18" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/layout/logout_dialog.xml" value="0.22" />
+        <entry key="..\:/AndroidStudioProjects/CaRatan/app/src/main/res/menu/bottom_menu.xml" value="0.12972972972972974" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/drawable/backicon.xml" value="0.1305" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/drawable/carbeli.xml" value="0.143" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/drawable/editicon.xml" value="0.1995" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/drawable/roundcorner.xml" value="0.143" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/drawable/roundcorner_g.xml" value="0.143" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/drawable/roundedcorner_y.xml" value="0.2025" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/drawable/sign_out_alt.xml" value="0.143" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/drawable/unhearted_icon.xml" value="0.1495" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/layout/activity_about_app.xml" value="0.33" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/layout/activity_car_detail.xml" value="0.33" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/layout/activity_car_information.xml" value="0.25" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/layout/activity_car_make_list.xml" value="0.25226449275362317" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/layout/activity_edit_profile.xml" value="0.33" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/layout/car_row_h.xml" value="0.33" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/layout/carmake_row.xml" value="0.33" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/layout/fragment_explore.xml" value="0.22" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/layout/imageview_layout.xml" value="0.2677083333333333" />
+        <entry key="..\:/Users/kapte/OneDrive/Documents/KULIAH/Semester3/MobileApps/Project/CaRatan/app/src/main/res/layout/logout_dialog.xml" value="0.33" />
+      </map>
+    </option>
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="jbr-21" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
