@@ -1,10 +1,10 @@
-# CaRatan - Car Dealership Application
+ Car Dealership Application
 
 A comprehensive Android application for buying and selling used cars, developed as a final project for the Mobile Application Development course.
 
 ## 🚗 About the Project
 
-CaRatan is a modern car dealership application that makes it easy for users to find and sell used cars. The application provides various features such as:
+This is a modern car dealership application that makes it easy for users to find and sell used cars. The application provides various features such as:
 
 - **Car Search & Discovery** - Browse cars by brand, model, location, and price
 - **Advanced Filtering** - Filter cars by multiple criteria
